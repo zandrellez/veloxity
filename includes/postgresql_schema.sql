@@ -15,7 +15,7 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255),
     contact VARCHAR(20) NOT NULL,
     role role_type DEFAULT 'customer',
     verification_token VARCHAR(255) NULL,
