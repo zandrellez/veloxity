@@ -1,6 +1,6 @@
 <?php
 // auth.php - Veloxity Sliding Transition Authentication Portal
-require_once 'includes/db.php';
+require_once 'includes/supabase.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

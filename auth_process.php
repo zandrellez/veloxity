@@ -1,6 +1,6 @@
 <?php
 // auth_process.php - Handles Sign Up and Sign In backend logic securely via PDO
-require_once 'includes/db.php';
+require_once 'includes/supabase.php';
 
 // Start session to persist user login state
 if (session_status() === PHP_SESSION_NONE) {
