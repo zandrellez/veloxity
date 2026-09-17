@@ -81,12 +81,6 @@ if (isset($_POST['signin'])) {
         exit();
     }
 
-    if (!$user || !password_verify($password, $user['password'])) {
-        $_SESSION['auth_error'] = "Invalid email address or password.";
-        header("Location: auth.php");
-        exit();
-    }   
-
     try {
         // Fetch user record by email
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
@@ -115,7 +109,8 @@ if (isset($_POST['signin'])) {
             }
         } else {
             // Invalid credentials
-            header("Location: auth.php?error=invalidcredentials");
+            $_SESSION['auth_error'] = "Invalid email address or password.";
+            header("Location: auth.php");
             exit();
         }
 

@@ -36,7 +36,7 @@ CREATE TABLE saved_passengers (
     passenger_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL, 
     name VARCHAR(100) NOT NULL,
-    age INT NOT NULL,
+    age INT,
     sex VARCHAR(10),
     contact VARCHAR(20),
     passenger_type passenger_type_enum DEFAULT 'Regular',
