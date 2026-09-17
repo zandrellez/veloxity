@@ -34,22 +34,11 @@ function loadEnv($filePath) {
 loadEnv(__DIR__ . '/../.env');
 
 // Fetch variables using getenv() with safety checks
-$host = getenv('DB_HOST');
-$port = getenv('DB_PORT') ?: '6543';
-$dbname = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$password = getenv('DB_PASS');
-
-// --- TEMPORARY DEBUG OUTPUT ---
-echo "<div style='background: #111; color: #00ff00; padding: 15px; font-family: monospace; border-bottom: 3px solid red;'>";
-echo "<h3>[RENDER DEBUG CHECK]</h3>";
-echo "DB_HOST: " . ($host ? htmlspecialchars($host) : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
-echo "DB_PORT: " . ($port ? htmlspecialchars($port) : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
-echo "DB_NAME: " . ($dbname ? htmlspecialchars($dbname) : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
-echo "DB_USER: " . ($user ? htmlspecialchars($user) : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
-echo "DB_PASS Length: " . (!empty($password) ? strlen($password) . " characters loaded" : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
-echo "</div>";
-// ------------------------------
+$host = trim(getenv('DB_HOST'));
+$port = trim(getenv('DB_PORT'));
+$dbname = trim(getenv('DB_NAME'));
+$user = trim(getenv('DB_USER'));
+$password = trim(getenv('DB_PASS'));
 
 try {
     $dsn = "pgsql:host={$host};port={$port};dbname={$dbname};sslmode=require";
