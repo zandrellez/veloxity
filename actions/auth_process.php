@@ -1,6 +1,6 @@
 <?php
 // auth_process.php - Handles Sign Up and Sign In backend logic securely via PDO
-require_once 'includes/supabase.php';
+require_once '../includes/supabase.php';
 
 date_default_timezone_set('Asia/Manila');
 
@@ -21,19 +21,19 @@ if (isset($_POST['signup'])) {
 
     if (empty($name) || empty($email) || empty($contact) || empty($password) || empty($confirmPassword)) {
         $_SESSION['auth_error'] = "Please fill in all required fields.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
     }
 
     if ($password !== $confirmPassword) {
         $_SESSION['auth_error'] = "Passwords do not match.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
     }
 
     if (strlen($password) < 8 || !preg_match('/[0-9]/', $password) || !preg_match('/[A-Za-z]/', $password)) {
         $_SESSION['auth_error'] = "Password must be at least 8 characters and include letters and numbers.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
     }
 
@@ -42,7 +42,7 @@ if (isset($_POST['signup'])) {
         $stmt->execute([$email]);
         if ($stmt->rowCount() > 0) {
             $_SESSION['auth_error'] = "An account with this email address already exists.";
-            header("Location: auth.php");
+            header("Location: ../auth.php");
             exit();        
         }
 
@@ -61,9 +61,9 @@ if (isset($_POST['signup'])) {
         $passengerStmt->execute([$userId, $name, $contact]);
 
         // --- SEND EMAIL VIA PHPMailer ---
-        require 'includes/PHPMailer/PHPMailer.php';
-        require 'includes/PHPMailer/SMTP.php';
-        require 'includes/PHPMailer/Exception.php';
+        require __DIR__ . '/../includes/PHPMailer/PHPMailer.php';
+        require __DIR__ . '/../includes/PHPMailer/SMTP.php';
+        require __DIR__ . '/../includes/PHPMailer/Exception.php';
 
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
@@ -71,7 +71,8 @@ if (isset($_POST['signup'])) {
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
         $hostName = $_SERVER['HTTP_HOST'];
         $projectFolder = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-        $verificationLink = "{$protocol}://{$hostName}{$projectFolder}/verify.php?token={$token}";
+        $projectFolder = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/\\');
+        $verificationLink = "{$protocol}://{$hostName}{$projectFolder}/actions/verify.php?token={$token}";
 
         // SMTP Configuration
         $mail->isSMTP();
@@ -95,12 +96,12 @@ if (isset($_POST['signup'])) {
         $mail->send();
 
         $_SESSION['auth_error'] = "Account registered successfully! Please check your email to verify your account.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
 
     } catch (Exception $e) {
-        $_SESSION['auth_error'] = "Account registered, but we couldn't send the verification email. <a href='resend_verification.php?email=" . urlencode($email) . "' style='color: var(--velox-primary); text-decoration: underline;'>Click here to try sending again</a>.";
-        header("Location: auth.php");
+        $_SESSION['auth_error'] = "Account registered, but we couldn't send the verification email. <a href='actions/resend_verification.php?email=" . urlencode($email) . "' style='color: var(--velox-primary); text-decoration: underline;'>Click here to try sending again</a>.";
+        header("Location: ../auth.php");
         exit();
     } catch (PDOException $e) {
         die("Registration Error: " . $e->getMessage());
@@ -116,7 +117,7 @@ if (isset($_POST['signin'])) {
 
     if (empty($email) || empty($password)) {
         $_SESSION['auth_error'] = "Please fill in all required fields.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
     }
 
@@ -128,8 +129,8 @@ if (isset($_POST['signin'])) {
 
         if ($user && password_verify($password, $user['password'])) {
             if ($user['is_verified'] == 0) {
-                $_SESSION['auth_error'] = "Please verify your email address. Didn't receive the email? <a href='resend_verification.php?email=" . urlencode($email) . "' style='color: var(--velox-primary); text-decoration: underline; font-weight: bold;'>Resend verification link</a>";
-                header("Location: auth.php");
+                $_SESSION['auth_error'] = "Please verify your email address. Didn't receive the email? <a href='actions/resend_verification.php?email=" . urlencode($email) . "' style='color: var(--velox-primary); text-decoration: underline; font-weight: bold;'>Resend verification link</a>";
+                header("Location: ../auth.php");
                 exit();
             }
 
@@ -142,20 +143,20 @@ if (isset($_POST['signin'])) {
             // Role-based redirection
             switch ($user['role']) {
                 case 'admin':
-                    header("Location: admin/dashboard.php");
+                    header("Location: ../admin/dashboard.php");
                     exit();
                 case 'operator':
-                    header("Location: operator/dashboard.php");
+                    header("Location: ../operator/dashboard.php");
                     exit();
                 case 'customer':
                 default:
-                    header("Location: customer/dashboard.php");
+                    header("Location: ../customer/dashboard.php");
                     exit();
             }
         } else {
             // Invalid credentials
             $_SESSION['auth_error'] = "Invalid email address or password.";
-            header("Location: auth.php");
+            header("Location: ../auth.php");
             exit();
         }
 

@@ -1,6 +1,6 @@
 <?php
 // resend_verification.php - Handles resending email verification links
-require_once 'includes/supabase.php';
+require_once '../includes/supabase.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -10,7 +10,7 @@ $email = trim($_GET['email'] ?? $_POST['email'] ?? '');
 
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION['auth_error'] = "Invalid email address provided.";
-    header("Location: auth.php");
+    header("Location: ../auth.php");
     exit();
 }
 
@@ -23,14 +23,14 @@ try {
     if (!$user) {
         // Generic response for security (prevents user enumeration)
         $_SESSION['auth_error'] = "If that email exists, a new verification link has been sent.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
     }
 
     // 2. Check if already verified
     if ($user['is_verified'] == 1) {
         $_SESSION['auth_error'] = "This account is already verified. Please sign in below.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
     }
 
@@ -42,9 +42,9 @@ try {
     $updateStmt->execute([$token, $expiresAt, $user['user_id']]);
 
     // 4. Send Email via PHPMailer
-    require 'includes/PHPMailer/PHPMailer.php';
-    require 'includes/PHPMailer/SMTP.php';
-    require 'includes/PHPMailer/Exception.php';
+    require __DIR__ . '/../includes/PHPMailer/PHPMailer.php';
+    require __DIR__ . '/../includes/PHPMailer/SMTP.php';
+    require __DIR__ . '/../includes/PHPMailer/Exception.php';
 
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
@@ -53,8 +53,8 @@ try {
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
     $hostName = $_SERVER['HTTP_HOST'];
     // Dynamically gets the folder path (e.g., '/veloxity' locally, or empty/root on Render)
-    $projectFolder = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-    $verificationLink = "{$protocol}://{$hostName}{$projectFolder}/verify.php?token={$token}";
+    $projectFolder = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/\\');
+    $verificationLink = "{$protocol}://{$hostName}{$projectFolder}/actions/verify.php?token={$token}";
 
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
@@ -76,12 +76,12 @@ try {
     $mail->send();
 
     $_SESSION['auth_error'] = "A new verification link has been sent to your email. Please check your inbox.";
-    header("Location: auth.php");
+    header("Location: ../auth.php");
     exit();
 
 } catch (Exception $e) {
     $_SESSION['auth_error'] = "Failed to send email. Please try again later.";
-    header("Location: auth.php");
+    header("Location: ../auth.php");
     exit();
 } catch (PDOException $e) {
     die("Database Error: " . $e->getMessage());

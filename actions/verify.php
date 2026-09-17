@@ -1,6 +1,6 @@
 <?php
 // verify.php - Handles account email verification
-require_once 'includes/supabase.php';
+require_once '../includes/supabase.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -10,7 +10,7 @@ $token = $_GET['token'] ?? '';
 
 if (empty($token)) {
     $_SESSION['auth_error'] = "Invalid verification link.";
-    header("Location: auth.php");
+    header("Location: ../auth.php");
     exit();
 }
 
@@ -22,7 +22,7 @@ try {
 
     if (!$user) {
         $_SESSION['auth_error'] = "Verification link is invalid or has expired.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
     }
 
@@ -37,7 +37,7 @@ try {
     $_SESSION['role'] = $user['role'];
 
     // Redirect to customer dashboard
-    header("Location: customer/dashboard.php?verified=success");
+    header("Location: ../customer/dashboard.php?verified=success");
     exit();
 
 } catch (PDOException $e) {

@@ -1,6 +1,6 @@
 <?php
 // google_callback.php - Handles Google OAuth callback and session creation
-require_once 'includes/supabase.php';
+require_once '../includes/supabase.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -10,7 +10,7 @@ date_default_timezone_set('Asia/Manila');
 
 if (!isset($_GET['code'])) {
     $_SESSION['auth_error'] = "Google login was cancelled or failed.";
-    header("Location: auth.php");
+    header("Location: ../auth.php");
     exit();
 }
 
@@ -19,8 +19,8 @@ $clientSecret = getenv('GOOGLE_CLIENT_SECRET');
 
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
 $hostName = $_SERVER['HTTP_HOST'];
-$projectFolder = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-$redirectUri = "{$protocol}://{$hostName}{$projectFolder}/google_callback.php";
+$projectFolder = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/\\');
+$redirectUri = "{$protocol}://{$hostName}{$projectFolder}/actions/google_callback.php";
 
 try {
     // 1. Exchange authorization code for access token
@@ -44,7 +44,7 @@ try {
 
     if (!isset($tokenData['access_token'])) {
         $_SESSION['auth_error'] = "Failed to authenticate token with Google.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
     }
 
@@ -59,7 +59,7 @@ try {
 
     if (!isset($googleUser['email'])) {
         $_SESSION['auth_error'] = "Could not retrieve email information from Google.";
-        header("Location: auth.php");
+        header("Location: ../auth.php");
         exit();
     }
 
@@ -102,20 +102,20 @@ try {
     // 5. Role-based Redirection
     switch ($user['role']) {
         case 'admin':
-            header("Location: admin/dashboard.php");
+            header("Location: ../admin/dashboard.php");
             exit();
         case 'operator':
-            header("Location: operator/dashboard.php");
+            header("Location: ../operator/dashboard.php");
             exit();
         case 'customer':
         default:
-            header("Location: customer/dashboard.php");
+            header("Location: ../customer/dashboard.php");
             exit();
     }
 
 } catch (Exception $e) {
     $_SESSION['auth_error'] = "Google Login Error: " . $e->getMessage();
-    header("Location: auth.php");
+    header("Location: ../auth.php");
     exit();
 }
 ?>
