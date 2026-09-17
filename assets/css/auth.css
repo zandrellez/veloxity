@@ -1,0 +1,289 @@
+body {
+    background-color: #FFFFFF;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.velox-auth-container {
+    position: relative;
+    width: 100%;
+    max-width: 950px;
+    height: 580px;
+    background: var(--surface-light);
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(11, 15, 25, 0.15);
+    overflow: hidden;
+    border: 1px solid #E2E8F0;
+}
+
+.forms-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.signin-signup {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 75%;
+    width: 50%;
+    transition: 1s 0.7s ease-in-out;
+    display: grid;
+    grid-template-columns: 1fr;
+    z-index: 5;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 3rem;
+    transition: all 0.2s 0.7s;
+    overflow: hidden;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+form.sign-up-form {
+    opacity: 0;
+    z-index: 1;
+}
+
+form.sign-in-form {
+    z-index: 2;
+}
+
+.title {
+    font-size: 1.8rem;
+    color: var(--text-main);
+    margin-bottom: 4px;
+    font-weight: 800;
+}
+
+.subtitle {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.panels-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Top-anchored panel layouts for spacious image view */
+.panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    z-index: 6;
+    padding: 3.5rem 3rem;
+}
+
+.left-panel {
+    pointer-events: all;
+}
+
+.right-panel {
+    pointer-events: none;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.panel .content {
+    color: #fff;
+    transition: transform 0.9s ease-in-out;
+    transition-delay: 0.6s;
+    max-width: 360px;
+}
+
+.panel h3 {
+    font-weight: 800;
+    line-height: 1.2;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+}
+
+.panel p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.velox-btn.transparent {
+    background: transparent;
+    border: 2px solid #fff;
+    width: 120px;
+    height: 36px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: var(--radius-sm);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.velox-btn.transparent:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--velox-primary);
+}
+
+.right-panel .content {
+    transform: translateX(800px);
+}
+
+/* Deep Charcoal overlay on warehouse/transit photo */
+.velox-auth-container:before {
+    content: "";
+    position: absolute;
+    height: 2000px;
+    width: 2000px;
+    top: -10%;
+    right: 48%;
+    transform: translateY(-50%);
+    background: linear-gradient(rgba(11, 15, 25, 0.82), rgba(11, 15, 25, 0.88)), url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    transition: 1.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border-radius: 50%;
+    z-index: 6;
+}
+
+/* Animation States */
+.velox-auth-container.sign-up-mode:before {
+    transform: translate(100%, -50%);
+    right: 52%;
+}
+
+.velox-auth-container.sign-up-mode .left-panel .content {
+    transform: translateX(-800px);
+}
+
+.velox-auth-container.sign-up-mode .signin-signup {
+    left: 25%;
+}
+
+.velox-auth-container.sign-up-mode form.sign-up-form {
+    opacity: 1;
+    z-index: 2;
+}
+
+.velox-auth-container.sign-up-mode form.sign-in-form {
+    opacity: 0;
+    z-index: 1;
+}
+
+.velox-auth-container.sign-up-mode .right-panel .content {
+    transform: translateX(0%);
+}
+
+.velox-auth-container.sign-up-mode .left-panel {
+    pointer-events: none;
+}
+
+.velox-auth-container.sign-up-mode .right-panel {
+    pointer-events: all;
+}
+
+.social-text {
+    padding: 0.4rem 0;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* Password Input Wrapper & Toggle Icon */
+.velox-password-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    margin: 6px 0;
+}
+
+.velox-password-wrapper .velox-input-field {
+    max-width: 100%;
+    margin: 0;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    z-index: 10;
+}
+
+/* 5-Segment Strength Meter Container */
+.password-strength-container {
+    width: 100%;
+    max-width: 360px;
+    margin-bottom: 6px;
+}
+
+.strength-bars {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    margin-bottom: 3px;
+}
+
+.strength-bar {
+    height: 4px;
+    background-color: #E2E8F0;
+    border-radius: 2px;
+    transition: background-color 0.3s ease;
+}
+
+.strength-text {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Alerts */
+.velox-alert-banner {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background-color: var(--surface-light);
+    border: 1px solid var(--velox-primary);
+    color: var(--text-main);
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: 0 10px 25px -5px rgba(11, 15, 25, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.velox-alert-banner.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
