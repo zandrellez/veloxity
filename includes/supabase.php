@@ -33,15 +33,27 @@ function loadEnv($filePath) {
 // Load the .env file from the root directory (assuming .env is one level above 'includes/')
 loadEnv(__DIR__ . '/../.env');
 
-// Fetch variables using getenv()
+// Fetch variables using getenv() with safety checks
 $host = getenv('DB_HOST');
 $port = getenv('DB_PORT');
 $dbname = getenv('DB_NAME');
 $user = getenv('DB_USER');
 $password = getenv('DB_PASS');
 
+// --- TEMPORARY DEBUG OUTPUT ---
+echo "<div style='background: #111; color: #00ff00; padding: 15px; font-family: monospace; border-bottom: 3px solid red;'>";
+echo "<h3>[RENDER DEBUG CHECK]</h3>";
+echo "DB_HOST: " . ($host ? htmlspecialchars($host) : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
+echo "DB_PORT: " . ($port ? htmlspecialchars($port) : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
+echo "DB_NAME: " . ($dbname ? htmlspecialchars($dbname) : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
+echo "DB_USER: " . ($user ? htmlspecialchars($user) : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
+echo "DB_PASS Length: " . (!empty($password) ? strlen($password) . " characters loaded" : "<span style='color:red;'>EMPTY / NULL</span>") . "<br>";
+echo "</div>";
+// ------------------------------
+
 try {
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
+    $dsn = "pgsql:host={$host};port={$port};dbname={$dbname};sslmode=require";
+    
     $pdo = new PDO($dsn, $user, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
