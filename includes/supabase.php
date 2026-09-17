@@ -1,6 +1,8 @@
 <?php
 // includes/supabase.php - Connected to cloud PostgreSQL (Supabase)
 
+date_default_timezone_set('Asia/Manila');
+
 /**
  * Lightweight custom function to load a .env file without Composer
  */

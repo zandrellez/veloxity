@@ -315,7 +315,7 @@ if (session_status() === PHP_SESSION_NONE) {
             $msg = $_SESSION['auth_error'];
             echo '<div id="authAlertBanner" class="velox-alert-banner show">
                     <i class="fa-solid fa-circle-exclamation" style="color: var(--velox-primary);"></i> 
-                    <span>' . htmlspecialchars($msg) . '</span>
+                    <span>' . $msg . '</span>
                 </div>';
             unset($_SESSION['auth_error']);
         }
