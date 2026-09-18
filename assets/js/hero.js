@@ -39,6 +39,7 @@
 
     const section = document.getElementById('gp-veloxity');
     if (!section) return;
+    const nextSection = section.nextElementSibling;
 
     const text = "VELOXITY";
     const characters = Array.from(text).map((char, index) => ({ char, index }));
@@ -166,7 +167,37 @@
     window.addEventListener('resize', layout);
     
     // Tie the frame update directly to the scroll event
-    section.addEventListener('scroll', () => requestAnimationFrame(frame));
+    section.addEventListener('scroll', () => {
+        requestAnimationFrame(frame);
+    });
+
+    // Capture wheel input only while the hero is the active scroll stage.
+    section.addEventListener('wheel', (e) => {
+        const atHeroStart = section.scrollTop <= 0;
+        const atHeroEnd = section.scrollTop >= section.scrollHeight - section.clientHeight - 1;
+        const atPageTop = window.scrollY === 0;
+        const heroComplete = section.classList.contains('entered') || atHeroEnd;
+        const nextSectionVisible = nextSection && (() => {
+            const bounds = nextSection.getBoundingClientRect();
+            return bounds.top < window.innerHeight && bounds.bottom > 0;
+        })();
+
+        if (nextSectionVisible) {
+            e.preventDefault();
+            window.scrollBy(0, e.deltaY);
+            return;
+        }
+
+        if (heroComplete && !atPageTop) return;
+
+        const canAdvance = e.deltaY > 0 && !atHeroEnd;
+        const canReverse = e.deltaY < 0 && atPageTop && !atHeroStart;
+
+        if (!canAdvance && !canReverse) return;
+
+        section.scrollTop += e.deltaY;
+        e.preventDefault();
+    }, { passive: false });
     
     layout();
     frame();

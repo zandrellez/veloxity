@@ -27,8 +27,12 @@ body, html {
     width: 100%;
     height: min(720px, 100svh);
     overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     container-type: inline-size;
 }
+
+.glyph-portal::-webkit-scrollbar { display: none; }
 
 .glyph-portal > [data-gp-viewport] {
     position: absolute; inset: 0 auto auto 0; height: 100vh; height: 100svh; width: 0; pointer-events: none; visibility: hidden;
