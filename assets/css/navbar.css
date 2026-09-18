@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Veloxity Clean Floating Pill Navbar (Fixed Height & Smooth Morph)
+   Veloxity Clean Floating Pill Navbar (Perfected Scale & Origin Transition)
    ========================================================================== */
 
 .velox-navbar-wrapper {
@@ -17,46 +17,39 @@
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between; /* Logo on left, Pill on right */
+    justify-content: space-between;
     align-items: center;
     position: relative;
     pointer-events: auto;
 }
 
-/* Logo Stays Fixed on the Left Outside the Pill */
-.velox-logo {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--text-main);
+.velox-logo-img {
+    display: block;
+    height: 36px;
+    width: auto;
+    object-fit: contain;
     text-decoration: none;
-    letter-spacing: -0.5px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(12px);
-    padding: 0.65rem 1.25rem;
-    border-radius: var(--radius-pill);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
 }
 
-/* Master Floating Pill Container (Right Side) */
+/* Master Floating Pill Container */
 .velox-nav-pill {
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    height: 48px; /* Consistent height prevents vertical jumping */
+    height: 48px;
     padding: 0 0.5rem 0 1.25rem;
     border-radius: var(--radius-pill);
     box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
     gap: 1.5rem;
-    
-    /* Smooth horizontal morphing setup */
-    overflow: hidden;
+    position: relative;
     white-space: nowrap;
+
+    /* CRITICAL FIX: Anchor scaling strictly to the right edge so it expands leftward from the button */
     transform-origin: right center;
-    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                opacity 0.3s ease, 
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease,
                 padding 0.4s ease;
 }
 
@@ -65,32 +58,50 @@
     display: flex;
     align-items: center;
     gap: 1.25rem;
-    transition: opacity 0.3s ease;
 }
 
-.velox-nav-links a {
+/* Unified Typography */
+.velox-nav-links a, 
+.velox-nav-links .dropdown-toggle,
+.velox-auth-section .profile-toggle {
     text-decoration: none;
     color: var(--text-muted);
+    font-family: inherit;
     font-weight: 500;
     font-size: 0.88rem;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
     transition: color 0.2s ease;
 }
 
-.velox-nav-links a:hover {
-    color: var(--text-main);
+.velox-nav-links a:hover, 
+.velox-nav-links .dropdown-toggle:hover,
+.velox-auth-section .profile-toggle:hover {
+    color: var(--velox-primary);
 }
 
-.badge-sub {
-    font-size: 0.7rem;
-    color: var(--velox-primary);
-    background: rgba(255, 107, 0, 0.1);
-    padding: 2px 6px;
-    border-radius: 4px;
+.nav-chevron {
+    width: 10px;
+    height: 10px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+    transition: transform 0.2s ease;
+}
+
+.velox-dropdown.active .nav-chevron {
+    transform: rotate(180deg);
 }
 
 .velox-nav-login-btn {
     background-color: var(--velox-primary);
-    color: #fff;
+    color: #fff !important;
     padding: 0.45rem 1.1rem;
     border-radius: var(--radius-pill);
     text-decoration: none;
@@ -101,48 +112,31 @@
 
 .velox-nav-login-btn:hover {
     background-color: var(--velox-primary-hover);
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
 }
 
-/* ==========================================================================
-   Dropdown Support & Profile Styling (Fixed Working Dropdown)
-   ========================================================================== */
+/* Dropdowns */
 .velox-dropdown {
     position: relative;
 }
 
-.dropdown-toggle, .profile-toggle {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    background: none;
-    border: none;
-    font: inherit;
-    color: var(--text-muted);
-}
-
-.dropdown-toggle:hover, .profile-toggle:hover {
-    color: var(--text-main);
-}
-
 .dropdown-menu {
     position: absolute;
-    top: calc(100% + 10px);
+    top: calc(100% + 14px);
     right: 0;
     background: var(--surface-light);
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: var(--radius-sm);
-    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.12);
     list-style: none;
     padding: 0.5rem 0;
     min-width: 200px;
     
-    /* Dropdown hidden states */
     opacity: 0;
     visibility: hidden;
     transform: translateY(8px);
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1001;
+    z-index: 1005;
     white-space: normal;
 }
 
@@ -159,7 +153,6 @@
     color: var(--velox-primary);
 }
 
-/* Active class toggled via JavaScript for reliable clicks */
 .velox-dropdown.active .dropdown-menu {
     opacity: 1;
     visibility: visible;
@@ -167,35 +160,37 @@
 }
 
 /* ==========================================================================
-   SCROLLED STATE (Pills compacts into menu button)
+   SCROLLED STATE (Compacts into menu button via scaleX)
    ========================================================================== */
 .velox-navbar-wrapper.scrolled .velox-nav-pill {
-    width: 48px; /* Same exact height as width to make it a perfect square/circle button */
+    width: 48px; 
     padding: 0;
     justify-content: center;
+    overflow: hidden; 
 }
 
-/* Hide contents when collapsed */
 .velox-navbar-wrapper.scrolled .velox-nav-links,
 .velox-navbar-wrapper.scrolled .velox-auth-section {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     position: absolute;
+    white-space: nowrap;
+    transition: opacity 0.1s ease, visibility 0s linear 0.1s;
 }
 
-/* Menu Trigger Button inside the compact pill */
 .menu-icon-trigger {
     display: none;
     cursor: pointer;
-    width: 100%;
-    height: 100%;
+    width: 48px;
+    height: 48px;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
     color: var(--text-main);
     background: transparent;
     border: none;
+    border-radius: var(--radius-pill);
 }
 
 .velox-navbar-wrapper.scrolled .menu-icon-trigger {
@@ -203,12 +198,12 @@
 }
 
 /* ==========================================================================
-   MENU OPEN STATE (Expands smoothly back out)
+   MENU OPEN STATE (Expands fully and restores overflow so text is unclipped)
    ========================================================================== */
 .velox-navbar-wrapper.scrolled.menu-open .velox-nav-pill {
-    width: 580px; /* Adjust this depending on your total links width */
+    width: auto; /* Adapts cleanly to fit all inner contents */
     padding: 0 0.5rem 0 1.25rem;
-    justify-content: space-between;
+    overflow: visible; /* CRITICAL FIX: Allows text and dropdowns to render fully outside the box bounds during opening */
 }
 
 .velox-navbar-wrapper.scrolled.menu-open .velox-nav-links,
@@ -217,8 +212,9 @@
     visibility: visible;
     pointer-events: auto;
     position: static;
+    transition: opacity 0.3s ease 0.15s, visibility 0s linear 0.15s;
 }
 
 .velox-navbar-wrapper.scrolled.menu-open .menu-icon-trigger {
-    display: none; /* Hide menu trigger when expanded */
+    display: none;
 }

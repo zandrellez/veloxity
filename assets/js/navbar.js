@@ -3,23 +3,32 @@ document.addEventListener("DOMContentLoaded", function () {
     const triggerBtn = document.getElementById("veloxMenuTriggerBtn");
 
     let lastScrollY = window.scrollY;
+    let hasTriggeredInitialScroll = false;
 
-    // Handle scroll events
     window.addEventListener("scroll", function () {
         let currentScrollY = window.scrollY;
         let scrollDifference = currentScrollY - lastScrollY;
+        
+        // Dynamically grab full screen height for the initial trigger threshold
+        let initialThreshold = window.innerHeight; 
+        let subsequentThreshold = 80; // Lower threshold after the first full screen scroll
 
-        if (currentScrollY > 100) {
+        let activeThreshold = hasTriggeredInitialScroll ? subsequentThreshold : initialThreshold;
+
+        if (currentScrollY > activeThreshold) {
             navbar.classList.add("scrolled");
+            hasTriggeredInitialScroll = true;
             
-            // If menu is open and user scrolls significantly (> 40px), close the menu
+            // If menu is open and user scrolls significantly down/up (> 40px), close the menu
             if (navbar.classList.contains("menu-open") && Math.abs(scrollDifference) > 40) {
                 navbar.classList.remove("menu-open");
                 closeAllDropdowns();
             }
-        } else {
+        } else if (currentScrollY < 30) {
+            // Reset back to full navbar when scrolled back up near the very top
             navbar.classList.remove("scrolled");
             navbar.classList.remove("menu-open");
+            hasTriggeredInitialScroll = false;
             closeAllDropdowns();
         }
         
@@ -52,10 +61,8 @@ function toggleDropdown(event, dropdownId) {
     const currentDropdown = document.getElementById(dropdownId);
     const isOpen = currentDropdown.classList.contains("active");
 
-    // Close all dropdowns first
     closeAllDropdowns();
 
-    // If it wasn't open, open it now
     if (!isOpen) {
         currentDropdown.classList.add("active");
     }
