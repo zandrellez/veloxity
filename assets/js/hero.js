@@ -177,7 +177,7 @@
         const atHeroEnd = section.scrollTop >= section.scrollHeight - section.clientHeight - 1;
         const atPageTop = window.scrollY === 0;
         const heroComplete = section.classList.contains('entered') || atHeroEnd;
-        const nextSectionVisible = nextSection && (() => {
+        const nextSectionVisible = window.scrollY > 0 && nextSection && (() => {
             const bounds = nextSection.getBoundingClientRect();
             return bounds.top < window.innerHeight && bounds.bottom > 0;
         })();
