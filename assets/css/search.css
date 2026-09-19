@@ -76,17 +76,19 @@
     position: relative;
     display: flex;
     align-items: center;
-    background: #EAECEF;
-    border-radius: 4px;
+    background: #FFFFFF; /* Crisp white instead of gray */
+    border: 1px solid #CBD5E1; /* Clean, subtle outline */
+    border-radius: 8px; /* Softer, modern corners */
     padding: 0.85rem 1.15rem;
     gap: 12px;
     cursor: pointer;
     user-select: none;
-    transition: background 0.15s ease;
+    transition: all 0.2s ease;
 }
 
-.velox-input-box:hover {
-    background: #E2E5E9;
+.velox-input-box:hover{
+    border-color: var(--velox-primary);
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.08); /* Soft orange glow on hover */
 }
 
 .plain-icon {
@@ -126,6 +128,41 @@
     align-items: center;
     gap: 12px;
     padding: 0.5rem 0;
+    position: relative;
+}
+
+/* Custom Dropdown Menu */
+.velox-custom-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: -12px; /* Aligns with the padding of the parent box */
+    width: calc(100% + 24px);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.12);
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    z-index: 110;
+    overflow: hidden;
+}
+
+.velox-custom-dropdown.active {
+    display: flex; /* Shown when clicked */
+}
+
+/* Individual Options */
+.custom-option {
+    padding: 0.85rem 1.15rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-main);
+    transition: all 0.15s ease;
+}
+
+.custom-option:hover {
+    background: var(--surface-muted);
+    color: var(--velox-primary);
 }
 
 .input-divider {
@@ -149,22 +186,26 @@
 
 /* Search Submit Button */
 .velox-search-action-btn {
-    background: #EAECEF;
+    background: var(--velox-primary); /* Bold orange by default */
     border: none;
-    border-radius: 4px;
-    padding: 1rem;
+    border-radius: 8px; /* Matches the new input box radius */
+    padding: 1.1rem;
     font-family: inherit;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 15px rgba(255, 107, 0, 0.25); /* Persistent soft drop shadow */
 }
 
 .velox-search-action-btn:hover {
-    background: var(--velox-primary);
-    color: #fff;
+    background: #E05E00; /* Darker orange on hover (var(--velox-primary-hover)) */
+    transform: translateY(-2px); /* Satisfying lift effect */
+    box-shadow: 0 6px 20px rgba(255, 107, 0, 0.35);
 }
 
 /* Popular Routes Section */
@@ -203,17 +244,17 @@
 /* Passenger Popup Stepper Menu */
 .passenger-popup-menu {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 12px); /* Pushed slightly further down for breathing room */
     left: 0;
     width: 100%;
-    background: var(--surface-light);
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
-    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.12);
-    padding: 1.25rem;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px; /* Smoother outer corners */
+    box-shadow: 0 24px 48px -12px rgba(11, 15, 25, 0.15); /* Premium, deep shadow */
+    padding: 1.5rem;
     display: none;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.15rem;
     z-index: 100;
     cursor: default;
 }
@@ -319,3 +360,61 @@
         padding: 1.5rem;
     }
 }
+
+/* ==========================================================================
+   Flatpickr Veloxity Theme Overrides
+   ========================================================================== */
+.flatpickr-calendar {
+    background: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 24px 48px -12px rgba(11, 15, 25, 0.15) !important; /* Matches your custom dropdown shadow */
+    padding: 10px 5px !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Header & Month/Year Text */
+.flatpickr-months .flatpickr-month,
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    color: var(--text-main) !important;
+    font-weight: 700 !important;
+}
+
+/* Arrows */
+.flatpickr-prev-month svg, 
+.flatpickr-next-month svg {
+    fill: var(--text-muted) !important;
+}
+
+/* Selected Date Highlight (Blaze Orange) */
+.flatpickr-day.selected, 
+.flatpickr-day.startRange, 
+.flatpickr-day.endRange, 
+.flatpickr-day.selected.inRange, 
+.flatpickr-day.startRange.inRange, 
+.flatpickr-day.endRange.inRange, 
+.flatpickr-day.selected:focus, 
+.flatpickr-day.startRange:focus, 
+.flatpickr-day.endRange:focus, 
+.flatpickr-day.selected:hover, 
+.flatpickr-day.startRange:hover, 
+.flatpickr-day.endRange:hover, 
+.flatpickr-day.selected.prevMonthDay, 
+.flatpickr-day.startRange.prevMonthDay, 
+.flatpickr-day.endRange.prevMonthDay, 
+.flatpickr-day.selected.nextMonthDay, 
+.flatpickr-day.startRange.nextMonthDay, 
+.flatpickr-day.endRange.nextMonthDay {
+    background: var(--velox-primary) !important;
+    border-color: var(--velox-primary) !important;
+    color: #FFFFFF !important;
+    font-weight: 700;
+}
+
+/* Hover State for Unselected Days */
+.flatpickr-day:hover {
+    background: var(--surface-muted) !important;
+    border-color: transparent !important;
+    color: var(--velox-primary) !important;
+}
+

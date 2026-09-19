@@ -4,20 +4,20 @@
 <section class="velox-cargo-section">
     <div class="cargo-container">
         
-        <!-- Wide Horizontal Stat Ticker (Spans wider than the card below) -->
+        <!-- Wide Horizontal Stat Ticker -->
         <div class="cargo-stats-wide">
             <div class="stat-item">
-                <span class="stat-number">15+</span>
+                <span class="stat-number" data-target="15" data-suffix="+">0</span>
                 <span class="stat-label">Active Terminals</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
-                <span class="stat-number">99.8%</span>
+                <span class="stat-number" data-target="99.8" data-suffix="%" data-decimals="1">0.0</span>
                 <span class="stat-label">On-Time Dispatch</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
-                <span class="stat-number">24/7</span>
+                <span class="stat-number" data-target="24" data-suffix="/7">0</span>
                 <span class="stat-label">Real-Time Telemetry</span>
             </div>
         </div>

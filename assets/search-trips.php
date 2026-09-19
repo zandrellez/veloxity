@@ -81,27 +81,45 @@
 
                         <!-- 2. Combined Origin & Destination Box -->
                         <div class="velox-input-box stacked-box">
-                            <div class="stacked-row">
+                            
+                            <!-- Origin Trigger -->
+                            <div class="stacked-row custom-select-trigger">
                                 <svg class="plain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
-                                <select name="origin" id="origin" class="velox-native-select" required>
-                                    <option value="" disabled selected>Origin</option>
-                                    <option value="qc-main">Quezon City Main Hub</option>
-                                    <option value="manila-sampaloc">Manila (Sampaloc Terminal)</option>
-                                    <option value="cubao">Cubao Terminal Exchange</option>
-                                    <option value="pasay">Pasay Bus Station</option>
-                                </select>
+                                <div class="input-content">
+                                    <span class="input-placeholder select-display-text">Origin</span>
+                                </div>
+                                <svg class="plain-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                <input type="hidden" name="origin" class="select-hidden-input" required>
+                                
+                                <!-- Custom Options Menu -->
+                                <div class="velox-custom-dropdown">
+                                    <div class="custom-option" data-value="qc-main">Quezon City Main Hub</div>
+                                    <div class="custom-option" data-value="manila-sampaloc">Manila (Sampaloc Terminal)</div>
+                                    <div class="custom-option" data-value="cubao">Cubao Terminal Exchange</div>
+                                    <div class="custom-option" data-value="pasay">Pasay Bus Station</div>
+                                </div>
                             </div>
+                            
                             <div class="input-divider"></div>
-                            <div class="stacked-row">
+                            
+                            <!-- Destination Trigger -->
+                            <div class="stacked-row custom-select-trigger">
                                 <svg class="plain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.5V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                <select name="destination" id="destination" class="velox-native-select" required>
-                                    <option value="" disabled selected>Destination</option>
-                                    <option value="baguio">Baguio City Terminal</option>
-                                    <option value="bicol">Bicol / Naga Hub</option>
-                                    <option value="ilocos">Ilocos Norte (Laoag)</option>
-                                    <option value="la-union">La Union (San Fernando)</option>
-                                </select>
+                                <div class="input-content">
+                                    <span class="input-placeholder select-display-text">Destination</span>
+                                </div>
+                                <svg class="plain-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                <input type="hidden" name="destination" class="select-hidden-input" required>
+                                
+                                <!-- Custom Options Menu -->
+                                <div class="velox-custom-dropdown">
+                                    <div class="custom-option" data-value="baguio">Baguio City Terminal</div>
+                                    <div class="custom-option" data-value="bicol">Bicol / Naga Hub</div>
+                                    <div class="custom-option" data-value="ilocos">Ilocos Norte (Laoag)</div>
+                                    <div class="custom-option" data-value="la-union">La Union (San Fernando)</div>
+                                </div>
                             </div>
+                            
                         </div>
 
                         <!-- 3. Date Picker Box -->

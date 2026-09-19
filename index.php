@@ -10,6 +10,7 @@ session_start(); // Start session for auth handling
     <title>Veloxity Terminal & Logistics Portal</title>
 
     <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="assets/css/globals.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link rel="stylesheet" href="assets/css/hero.css">
@@ -30,12 +31,12 @@ session_start(); // Start session for auth handling
     <?php include 'assets/ecosystem-grid.php'; ?>
     <?php include 'assets/footer.php'; ?>
 
-    <!-- Include Navbar Interactive Script -->
+    <!-- Include scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/animations.js"></script>
     <script src="assets/js/hero.js"></script>
     <script src="assets/js/search.js"></script>
-    <script src="assets/js/animations.js"></script>
-
-    <!-- <script src="assets/js/cargo.js"></script> -->
+    <script src="assets/js/cargo.js"></script>
 </body>
 </html>

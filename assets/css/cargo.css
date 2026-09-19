@@ -4,16 +4,22 @@
     z-index: 20;
     width: 100%;
     padding: 6rem 2rem;
-    background: #090a0f;
+    background: var(--velox-slate);
     color: var(--gp-ink, #f8fafc);
+    min-height: 100vh;
+    justify-content: center;
+    display: flex;
+    align-items: center; /* Centers everything vertically */
+    scroll-snap-align: start; /* The magnetic snap point */
 }
 
 .cargo-container {
-    max-width: 1150px; /* Gives extra lateral room for the wide ticker */
+    width: 100%; /* This is the fix that forces it back to full width */
+    max-width: 1150px; 
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers the narrower card under the wide ticker */
+    align-items: center; 
     gap: 4rem;
 }
 
@@ -67,16 +73,15 @@
     }
 }
 
-/* Focused, Narrower Floating Command Card */
+/* Focused, Wider Tracking Command Card */
 .cargo-command-card {
     width: 100%;
-    max-width: 900px; /* Constrained width makes it distinct and punchy under the wide ticker */
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-top: 1px solid rgba(56, 189, 248, 0.25);
+    max-width: 1050px; /* Increased from 900px to match search card */
+    background: var(--surface-muted); /* New light background */
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 1.25rem;
     padding: 3rem;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 40px rgba(56, 189, 248, 0.03);
+    box-shadow: 0 20px 40px -10px rgba(11, 15, 25, 0.15); /* Softer drop shadow */
 }
 
 .cargo-card-header {
@@ -97,7 +102,7 @@
     font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: #fff;
+    color: var(--text-main); /* Flipped to dark text */
 }
 
 /* Tracking Input Group */
@@ -123,11 +128,11 @@
 
 .input-wrapper input {
     width: 100%;
-    background: #050608;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--surface-light); /* Clean white input field */
+    border: 1px solid #CBD5E1; /* Subtle border */
     border-radius: 0.875rem;
     padding: 1.1rem 1rem 1.1rem 3rem;
-    color: #fff;
+    color: var(--text-main); /* Dark text when typing */
     font-size: 0.95rem;
     transition: all 0.2s ease;
 }
@@ -164,7 +169,7 @@
 .cargo-sub-footer {
     margin-top: 1.5rem;
     font-size: 0.9rem;
-    color: #94a3b8;
+    color: var(--text-muted);
 }
 
 .cargo-sub-footer a {

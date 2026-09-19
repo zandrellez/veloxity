@@ -6,13 +6,16 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 1350px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 40px 100px;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     color: #0F172A;
     box-sizing: border-box;
-    overflow: hidden; /* Prevents global outer overflow */
+    overflow: hidden; 
+    background: var(--surface-muted); /* Updated background */
+    min-height: 100vh;
+    justify-content: center;
+    scroll-snap-align: start; /* The magnetic snap point */
 }
 
 /* Header Text & Subtext */
