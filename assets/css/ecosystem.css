@@ -1,0 +1,224 @@
+/* ==========================================================================
+   Ecosystem Component Stylesheet (assets/ecosystem.css)
+   ========================================================================== */
+
+.ecosystem-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #0F172A;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevents global outer overflow */
+}
+
+/* Header Text & Subtext */
+.ecosystem-header {
+    margin-bottom: 24px;
+}
+
+.ecosystem-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #0F172A;
+    margin-bottom: 6px;
+}
+
+.ecosystem-subtitle {
+    font-size: 1rem;
+    color: #64748B;
+    font-weight: 400;
+}
+
+/* Strict 70-30 Grid Ratio (7fr Map / 3fr Marquee) */
+.ecosystem-grid {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    gap: 32px;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (max-width: 968px) {
+    .ecosystem-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Left Column: Map Box (70%) */
+.ecosystem-map-container {
+    background: #E2E8F0;
+    border-radius: 16px;
+    width: 100%;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #CBD5E1;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.map-placeholder-content {
+    text-align: center;
+    color: #64748B;
+}
+
+.map-placeholder-content svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    stroke: currentColor;
+    fill: none;
+}
+
+.map-placeholder-content p {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Right Column: Partner Operators Column (30% - Constrained width & hidden overflow) */
+.ecosystem-operators-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-width: 0; /* Crucial: allows grid column to respect the 30% boundary instead of blowing out */
+    overflow: hidden; /* Clips everything strictly inside 30% width */
+    box-sizing: border-box;
+}
+
+.operators-header-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.operators-header-group h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.operators-subtext {
+    font-size: 0.85rem;
+    color: #64748B;
+}
+
+.register-link {
+    font-weight: 600;
+    color: #FF6B00;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.register-link:hover {
+    color: #E05E00;
+    text-decoration: underline;
+}
+
+/* Marquee Wrapper & Rows */
+.marquee-wrapper {
+    position: relative;
+    overflow: hidden; /* Clips scrolling items strictly within the 30% column bounds */
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+    justify-content: space-around;
+}
+
+/* Gradient Mask for Smooth Fading Edges */
+.marquee-wrapper::before,
+.marquee-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 25px;
+    z-index: 2;
+    pointer-events: none;
+}
+.marquee-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, #FFFFFF, transparent);
+}
+.marquee-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, #FFFFFF, transparent);
+}
+
+.marquee-row {
+    display: flex;
+    width: max-content;
+    gap: 12px;
+}
+
+/* Slower Smooth Animation */
+.marquee-row.scroll-left {
+    animation: scrollLeft 45s linear infinite;
+}
+
+.marquee-row.scroll-right {
+    animation: scrollRight 45s linear infinite;
+}
+
+.marquee-row:hover {
+    animation-play-state: paused;
+}
+
+/* Operator Logo Cards */
+.operator-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 14px 20px;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #334155;
+    min-width: 115px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    transition: all 0.2s ease;
+}
+
+.operator-card:hover {
+    border-color: #FF6B00;
+    color: #FF6B00;
+    background: #FFF7ED;
+}
+
+/* Keyframes for Marquee */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

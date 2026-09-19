@@ -1,0 +1,193 @@
+/* --- Cargo Section Layout --- */
+.velox-cargo-section {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    padding: 6rem 2rem;
+    background: #090a0f;
+    color: var(--gp-ink, #f8fafc);
+}
+
+.cargo-container {
+    max-width: 1150px; /* Gives extra lateral room for the wide ticker */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the narrower card under the wide ticker */
+    gap: 4rem;
+}
+
+/* Wide Horizontal Stat Ticker */
+.cargo-stats-wide {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-number {
+    display: block;
+    font-size: clamp(2.5rem, 4vw, 3.5rem); /* Massive, heavily emphasized numbers */
+    font-weight: 800;
+    color: var(--accent-color, #38bdf8);
+    letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+    .cargo-stats-wide {
+        flex-direction: column;
+        gap: 2.5rem;
+        padding: 0;
+    }
+    .stat-divider {
+        width: 60px;
+        height: 1px;
+    }
+}
+
+/* Focused, Narrower Floating Command Card */
+.cargo-command-card {
+    width: 100%;
+    max-width: 900px; /* Constrained width makes it distinct and punchy under the wide ticker */
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 1.25rem;
+    padding: 3rem;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 40px rgba(56, 189, 248, 0.03);
+}
+
+.cargo-card-header {
+    margin-bottom: 2rem;
+}
+
+.cargo-badge {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent-color, #38bdf8);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.cargo-card-header h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+/* Tracking Input Group */
+.cargo-input-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.input-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.tracking-icon {
+    position: absolute;
+    left: 1.25rem;
+    color: #64748b;
+    pointer-events: none;
+}
+
+.input-wrapper input {
+    width: 100%;
+    background: #050608;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.875rem;
+    padding: 1.1rem 1rem 1.1rem 3rem;
+    color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: var(--accent-color, #38bdf8);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+/* Action Button */
+.btn-track-action {
+    background: var(--accent-color, #38bdf8);
+    color: #0f1115;
+    border: none;
+    border-radius: 0.875rem;
+    padding: 1.1rem 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-track-action:hover {
+    background: #7dd3fc;
+    transform: translateY(-1px);
+}
+
+/* Sub-footer link */
+.cargo-sub-footer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.cargo-sub-footer a {
+    color: var(--accent-color, #38bdf8);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}
+
+.cargo-sub-footer a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .cargo-input-group {
+        flex-direction: column;
+    }
+    .input-wrapper, .btn-track-action {
+        width: 100%;
+        justify-content: center;
+    }
+    .cargo-command-card {
+        padding: 2rem 1.5rem;
+    }
+}
