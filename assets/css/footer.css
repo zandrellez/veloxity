@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Footer Component Stylesheet (assets/footer.css)
+   ========================================================================== */
+
+.velox-footer {
+    background-color: #0B0F19; /* Veloxity dark base */
+    color: #FFFFFF;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    width: 100%;
+    padding: 80px 20px;
+    margin-top: 60px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 107, 0, 0.2);
+}
+
+.footer-content-wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Two-Column Grid Setup */
+.footer-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+/* Left Side Layout */
+.footer-left-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 320px;
+}
+
+.footer-links-container {
+    display: flex;
+    gap: 60px;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.footer-col h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 0.9rem;
+    color: #94A3B8;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #FF6B00;
+}
+
+.footer-copyright {
+    font-size: 0.82rem;
+    color: #64748B;
+    margin-top: 30px;
+}
+
+/* Right Side Layout */
+.footer-right-side {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.footer-cta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-cta-tagline {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #94A3B8;
+}
+
+.footer-cta-headline {
+    font-size: clamp(2.5rem, 3.7vw, 3.5rem);
+    font-weight: 800;
+    color: #FF6B00; /* Blaze Orange as requested */
+    text-decoration: none;
+    line-height: 1.1;
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.footer-cta-headline span {
+    transition: transform 0.2s ease;
+}
+
+.footer-cta-headline:hover span {
+    transform: translateX(8px);
+}
+
+/* The exact horizontal line under the CTA headline */
+.footer-cta-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin-top: 24px;
+}
+
+.footer-brand-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-brand-logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+}
+
+.footer-brand-desc {
+    font-size: 0.9rem;
+    color: #94A3B8;
+    line-height: 1.4;
+}
+
+/* Responsive breakpoint */
+@media (max-width: 968px) {
+    .footer-split-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+}

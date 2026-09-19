@@ -16,23 +16,19 @@ session_start(); // Start session for auth handling
     <link rel="stylesheet" href="assets/css/search.css">
     <link rel="stylesheet" href="assets/css/cargo.css">
     <link rel="stylesheet" href="assets/css/ecosystem.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
 </head>
 <body style="overflow: auto; display: block;"> 
 
     <!-- Include the Reusable Navbar -->
     <?php include 'assets/navbar.php'; ?>
 
-    <!-- Include the Hero Scroll-Zoom Component -->
+    <!-- Include the different sections -->
     <?php include 'assets/hero.php'; ?>
-
-    <!-- Include the Search Trip Component -->
     <?php include 'assets/search-trips.php'; ?>
-
-    <!-- Include the Send Cargo Component -->
     <?php include 'assets/cargo-strip.php'; ?>
-
-    <!-- Include the Ecosystem Grid Component -->
     <?php include 'assets/ecosystem-grid.php'; ?>
+    <?php include 'assets/footer.php'; ?>
 
     <!-- Include Navbar Interactive Script -->
     <script src="assets/js/navbar.js"></script>
