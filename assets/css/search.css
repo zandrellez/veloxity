@@ -2,28 +2,42 @@
    Veloxity Unified Master Card Search Layout
    ========================================================================== */
 
-.velox-search-full-section {
+/* Master Pinned Container */
+.velox-search-pin-container {
     position: relative;
-    z-index: 20;
+    height: 175vh; /* Slightly shorter timeline since we removed the bg fade */
     width: 100%;
-    min-height: 100svh;
+}
+
+/* Sticky Viewport that locks to the screen */
+.velox-search-sticky-viewport {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4rem 2rem;
-    background: var(--surface-muted);
-    box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: var(--surface-muted); /* Instantly white */
 }
 
-/* Master Bounding Card Box */
+/* The Floating Search Card */
 .velox-search-master-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1050px;
+    padding: 3rem 2.5rem;
     background: var(--surface-light);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     box-shadow: 0 20px 40px -10px rgba(11, 15, 25, 0.05);
-    width: 100%;
-    max-width: 1050px;
-    padding: 3rem 2.5rem;
+    
+    /* Animation Start State */
+    opacity: 0; 
+    transform: translateY(80px); 
+    will-change: transform, opacity;
 }
 
 .velox-search-wrapper-split {

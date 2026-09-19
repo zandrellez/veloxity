@@ -34,6 +34,7 @@ session_start(); // Start session for auth handling
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/hero.js"></script>
     <script src="assets/js/search.js"></script>
+    <script src="assets/js/animations.js"></script>
 
     <!-- <script src="assets/js/cargo.js"></script> -->
 </body>
