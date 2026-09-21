@@ -59,8 +59,14 @@ CREATE TABLE terminals (
 CREATE TABLE operators (
     operator_id SERIAL PRIMARY KEY,
     operator_name VARCHAR(150) NOT NULL,
+    permit_number VARCHAR(100) NOT NULL,
+    headquarters_address VARCHAR(255) NOT NULL,
+    user_id INT NULL,
     contact_email VARCHAR(100),
-    contact_phone VARCHAR(20)
+    contact_phone VARCHAR(20),
+    acc_status VARCHAR(20) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 -- ==========================================
