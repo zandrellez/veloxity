@@ -8,7 +8,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $clientId = getenv('GOOGLE_CLIENT_ID');
 
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+$protocol = (
+    (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ||
+    (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
+) ? "https" : "http";
 $hostName = $_SERVER['HTTP_HOST'];
 $projectFolder = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/\\');
 $redirectUri = "{$protocol}://{$hostName}{$projectFolder}/actions/google_callback.php";
