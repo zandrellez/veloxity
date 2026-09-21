@@ -7,7 +7,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Standalone Logo Image on Left -->
         <a href="index.php">
             <img src="assets/images/veloxity-logo.svg" alt="Veloxity Logo" class="velox-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <span style="display:none; font-weight:800; font-size:1.25rem; color:var(--text-main);">Veloxity</span>
+            <span class="velox-logo-fallback">Veloxity</span>
         </a>
 
         <!-- Floating Pill Navbar (Right Side) -->
@@ -47,7 +47,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                             <li><a href="bookings.php">Bookings</a></li>
                             <li><a href="shipments.php">Shipments</a></li>
                             <li><a href="settings.php">Settings</a></li>
-                            <li><a href="logout.php" style="color: var(--velox-red);">Log Out</a></li>
+                            <li><a href="logout.php" class="velox-logout-link">Log Out</a></li>
                         </ul>
                     </div>
                 <?php else: ?>

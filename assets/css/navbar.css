@@ -7,14 +7,14 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
-    padding: 1.25rem 2rem;
+    z-index: var(--z-navbar);
+    padding: var(--space-5) var(--space-8);
     pointer-events: none;
-    transition: padding 0.3s ease;
+    transition: padding var(--transition-slow);
 }
 
 .velox-nav-container {
-    max-width: 1200px;
+    max-width: var(--layout-max-width);
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -25,94 +25,111 @@
 
 .velox-logo-img {
     display: block;
-    height: 36px;
+    height: var(--size-logo-height);
     width: auto;
     object-fit: contain;
     text-decoration: none;
+}
+
+.velox-logo-fallback {
+    display: none;
+    font-weight: 800;
+    font-size: var(--text-xl);
+    color: var(--color-text-primary);
 }
 
 /* Master Floating Pill Container */
 .velox-nav-pill {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    height: 48px;
-    padding: 0 0.5rem 0 1.25rem;
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(var(--blur-glass));
+    border: 1px solid var(--color-hairline);
+    height: var(--size-control-height);
+    
+    /* Equal padding for both sides */
+    padding: 0 var(--space-4);
+    
     border-radius: var(--radius-pill);
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
-    gap: 1.5rem;
+    box-shadow: var(--shadow-nav-pill);
+    gap: var(--space-6);
     position: relative;
     white-space: nowrap;
 
-    /* CRITICAL FIX: Anchor scaling strictly to the right edge so it expands leftward from the button */
     transform-origin: right center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.3s ease,
-                padding 0.4s ease;
+    transition: transform var(--transition-pill),
+                opacity var(--transition-slow),
+                padding var(--transition-pill-ease);
 }
 
 .velox-nav-links {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: var(--space-5);
+    
+    /* THE FIX: Reset browser default spacing for <ul> */
+    margin: 0;
+    padding: 0;
 }
 
-/* Unified Typography */
 .velox-nav-links a, 
 .velox-nav-links .dropdown-toggle,
 .velox-auth-section .profile-toggle {
     text-decoration: none;
-    color: var(--text-muted);
+    color: var(--color-text-muted);
     font-family: inherit;
     font-weight: 500;
-    font-size: 0.88rem;
+    font-size: var(--text-base);
     background: none;
     border: none;
     padding: 0;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: var(--space-1-5);
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color var(--transition-base);
 }
 
 .velox-nav-links a:hover, 
 .velox-nav-links .dropdown-toggle:hover,
 .velox-auth-section .profile-toggle:hover {
-    color: var(--velox-primary);
+    color: var(--color-primary-default);
 }
 
 .nav-chevron {
-    width: 10px;
-    height: 10px;
+    width: var(--size-icon-sm);
+    height: var(--size-icon-sm);
     stroke: currentColor;
-    stroke-width: 2.5;
+    stroke-width: var(--stroke-width-icon);
     fill: none;
-    transition: transform 0.2s ease;
+    transition: transform var(--transition-base);
 }
 
 .velox-dropdown.active .nav-chevron {
     transform: rotate(180deg);
 }
 
+/* FIX: Base state now includes border to match global .btn-primary */
 .velox-nav-login-btn {
-    background-color: var(--velox-primary);
-    color: #fff !important;
-    padding: 0.45rem 1.1rem;
+    background-color: var(--color-primary-default);
+    color: var(--color-text-on-primary) !important;
+    padding: var(--space-2) var(--space-4);
+    border: 2px solid var(--color-primary-default); 
     border-radius: var(--radius-pill);
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.85rem;
-    transition: background 0.2s ease;
+    font-size: var(--text-sm);
+    transition: all var(--transition-base);
 }
 
+/* FIX: Hover state now perfectly mimics global .btn-primary invert logic */
 .velox-nav-login-btn:hover {
-    background-color: var(--velox-primary-hover);
-    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+    background-color: var(--color-surface-default);
+    color: var(--color-primary-default) !important;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
 /* Dropdowns */
@@ -122,48 +139,53 @@
 
 .dropdown-menu {
     position: absolute;
-    top: calc(100% + 14px);
+    top: calc(100% + var(--space-3));
     right: 0;
-    background: var(--surface-light);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: var(--color-surface-default);
+    border: 1px solid var(--color-hairline);
     border-radius: var(--radius-sm);
-    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-dropdown);
     list-style: none;
-    padding: 0.5rem 0;
-    min-width: 200px;
+    padding: var(--space-2) 0;
+    min-width: var(--size-dropdown-min-width);
     
     opacity: 0;
     visibility: hidden;
-    transform: translateY(8px);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1005;
+    transform: translateY(var(--space-2));
+    transition: all var(--transition-dropdown);
+    z-index: var(--z-dropdown);
     white-space: normal;
 }
 
-.dropdown-menu li a {
-    display: block;
-    padding: 0.55rem 1rem;
-    color: var(--text-main);
-    font-size: 0.85rem;
-    text-decoration: none;
-}
-
-.dropdown-menu li a:hover {
-    background: var(--surface-muted);
-    color: var(--velox-primary);
-}
-
+/* FIX: Restored the missing active class to trigger the dropdown */
 .velox-dropdown.active .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
+.dropdown-menu li a {
+    display: block;
+    padding: var(--space-2) var(--space-4);
+    color: var(--color-text-primary);
+    font-size: var(--text-sm);
+    text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+    background: var(--color-surface-subtle);
+    color: var(--color-primary-default);
+}
+
+.velox-logout-link {
+    color: var(--color-error-default) !important;
+}
+
 /* ==========================================================================
    SCROLLED STATE (Compacts into menu button via scaleX)
    ========================================================================== */
 .velox-navbar-wrapper.scrolled .velox-nav-pill {
-    width: 48px; 
+    width: var(--size-control-height); 
     padding: 0;
     justify-content: center;
     overflow: hidden; 
@@ -176,18 +198,18 @@
     pointer-events: none;
     position: absolute;
     white-space: nowrap;
-    transition: opacity 0.1s ease, visibility 0s linear 0.1s;
+    transition: opacity var(--transition-fast), visibility var(--transition-instant) var(--delay-fast);
 }
 
 .menu-icon-trigger {
     display: none;
     cursor: pointer;
-    width: 48px;
-    height: 48px;
+    width: var(--size-control-height);
+    height: var(--size-control-height);
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
-    color: var(--text-main);
+    font-size: var(--text-icon-lg);
+    color: var(--color-text-primary);
     background: transparent;
     border: none;
     border-radius: var(--radius-pill);
@@ -201,9 +223,10 @@
    MENU OPEN STATE (Expands fully and restores overflow so text is unclipped)
    ========================================================================== */
 .velox-navbar-wrapper.scrolled.menu-open .velox-nav-pill {
-    width: auto; /* Adapts cleanly to fit all inner contents */
-    padding: 0 0.5rem 0 1.25rem;
-    overflow: visible; /* CRITICAL FIX: Allows text and dropdowns to render fully outside the box bounds during opening */
+    width: auto;
+    /* FIX: Match the updated balanced padding here too */
+    padding: 0 var(--space-2);
+    overflow: visible;
 }
 
 .velox-navbar-wrapper.scrolled.menu-open .velox-nav-links,
@@ -212,7 +235,7 @@
     visibility: visible;
     pointer-events: auto;
     position: static;
-    transition: opacity 0.3s ease 0.15s, visibility 0s linear 0.15s;
+    transition: opacity var(--transition-slow) var(--delay-menu), visibility var(--transition-instant) var(--delay-menu);
 }
 
 .velox-navbar-wrapper.scrolled.menu-open .menu-icon-trigger {
