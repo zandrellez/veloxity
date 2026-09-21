@@ -1,0 +1,562 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* ==========================================================================
+       1. CORE CANVAS & SURFACES (Alternating Rhythm)
+       ========================================================================== */
+    /* Light Sections (Hero, Search, Terminals) */
+    --color-canvas-default: #FAFAFC;
+    --color-surface-default: #FFFFFF;
+    --color-surface-subtle: #F1F5F9;
+
+    /* Dark Sections (Cargo, Footer) */
+    --color-canvas-inverse: #1E293B;
+    --color-surface-inverse: #0B0F19;
+
+    /* Backwards-compatibility mapping for your existing component CSS files */
+    --velox-dark: #0B0F19;
+    --velox-slate: #1E293B;
+    --surface-light: #FFFFFF;
+    --surface-muted: #F8FAFC;
+
+    /* ==========================================================================
+       2. TYPOGRAPHY & FONT FAMILIES
+       ========================================================================== */
+    --font-family-display: 'Syne', sans-serif;
+    --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-family-mono: monospace;
+
+    /* ==========================================================================
+       3. BRAND, ACCENT & STATUS COLORS
+       ========================================================================== */
+    /* Primary (Transport Orange) */
+    --velox-primary: #FF6B00;
+    --velox-primary-hover: #E05E00;
+    --color-primary-default: #FF6B00;
+    --color-primary-hover: #E56000;
+    --color-primary-subtle-bg: #FFF3E6;
+    --color-text-on-primary: #FFFFFF;
+
+    /* Secondary (Terminal Teal) */
+    --velox-secondary: #00C2CB;
+    --velox-secondary-hover: #00A8B0;
+    --color-secondary-default: #00C2CB;
+    --color-secondary-hover: #00ADB5;
+    --color-secondary-subtle-bg: #E6F8F9;
+    --color-text-on-secondary: #0B0F19;
+
+    /* Feedback & Status */
+    --velox-red: #EF4444;
+    --velox-yellow: #F59E0B;
+    --color-success-default: #16A34A;
+    --color-success-subtle-bg: #DCFCE7;
+    --color-warning-default: #F59E0B;
+    --color-warning-subtle-bg: #FEF3C7;
+    --color-error-default: #EF4444;
+    --color-error-subtle-bg: #FEE2E2;
+    --color-info-default: #0284C7;
+
+    /* Text Hierarchy */
+    --text-main: #0F172A;
+    --text-muted: #64748B;
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #475569;
+    --color-text-muted: #94A3B8;
+    --color-text-on-inverse: #F8FAFC;
+
+    /* ==========================================================================
+       4. BORDERS & DIVIDERS
+       ========================================================================== */
+    --border-subtle: #E2E8F0;
+    --border-default: #CBD5E1;
+    --border-inverse-subtle: #334155;
+    --color-border-focused: #FF6B00;
+
+    /* ==========================================================================
+       5. INTERACTIVE & FOCUS STATES
+       ========================================================================== */
+    --color-focus-ring: rgba(255, 107, 0, 0.3);
+    --color-disabled-bg: #E2E8F0;
+    --color-disabled-text: #94A3B8;
+
+    /* ==========================================================================
+       6. ELEVATION & DEPTH (Shadows & Radii)
+       ========================================================================== */
+    --radius-sm: 8px;
+    --radius-pill: 50px;
+    --radius-card: 16px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    --shadow-subtle: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-intense: 0 25px 50px -12px rgba(11, 15, 25, 0.25);
+    --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -2px rgba(15, 23, 42, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
+  }
+}
+
+/* ==========================================================================
+   7. BASE ELEMENT RESETS & TYPOGRAPHY MAPPINGS
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: var(--color-canvas-default);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* Display Font Class Utility */
+.font-display {
+  font-family: var(--font-family-display);
+}
+
+/* ==========================================================================
+   8. BUTTON SYSTEMS (Primary Inverted Swap & Secondary Ghost)
+   ========================================================================== */
+
+/* Primary Button: Solid Orange -> Inverts to White with Orange Border on Hover */
+.btn-primary,
+.velox-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary-default);
+  color: var(--color-text-on-primary);
+  font-family: var(--font-family-body);
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-primary-default);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover,
+.velox-btn:hover {
+  background-color: #FFFFFF;
+  color: var(--color-primary-default);
+  border-color: var(--color-primary-default);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Secondary Button: Outlined Ghost Style */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border-default);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-secondary-default);
+  color: var(--color-secondary-default);
+  background-color: var(--color-secondary-subtle-bg);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   9. GLOBAL REUSABLE INPUT, SELECT, DATE & DROPDOWN COMPONENTS
+   ========================================================================== */
+.velox-card {
+  background-color: var(--color-surface-default);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+}
+
+.velox-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* General Input Box Container */
+.velox-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--surface-light);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.15rem;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.velox-input-box:hover {
+  border-color: var(--color-primary-default);
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.08);
+}
+
+/* Standard Text/Field Wrappers */
+.velox-input-field {
+  width: 100%;
+  background-color: var(--surface-muted);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  height: 44px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.velox-input-field:focus-within {
+  background-color: var(--surface-light);
+  border-color: var(--color-border-focused);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.velox-input-field input,
+.velox-native-date {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* Stacked Origin/Destination Layout */
+.stacked-box {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0.4rem 1.15rem;
+  gap: 0;
+}
+
+.stacked-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.input-divider {
+  height: 1px;
+  background: var(--border-default);
+  width: calc(100% - 30px);
+  margin-left: 30px;
+}
+
+/* Custom Dropdown Menus (Reusable) */
+.velox-custom-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: -12px;
+  width: calc(100% + 24px);
+  background: var(--surface-light);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.12);
+  display: none;
+  flex-direction: column;
+  z-index: 110;
+  overflow: hidden;
+}
+
+.velox-custom-dropdown.active {
+  display: flex;
+}
+
+.custom-option {
+  padding: 0.85rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-main);
+  transition: all 0.15s ease;
+}
+
+.custom-option:hover {
+  background: var(--surface-muted);
+  color: var(--color-primary-default);
+}
+
+/* Passenger Popup Stepper Menu */
+.passenger-popup-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  width: 100%;
+  background: var(--surface-light);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 48px -12px rgba(11, 15, 25, 0.15);
+  padding: 1.5rem;
+  display: none;
+  flex-direction: column;
+  gap: 1.15rem;
+  z-index: 100;
+  cursor: default;
+}
+
+.passenger-popup-menu.active {
+  display: flex;
+}
+
+.popup-header {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.5rem;
+}
+
+.stepper-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stepper-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-type {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.p-desc {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.stepper-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.step-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  border: 1px solid var(--border-default);
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.step-btn:hover {
+  background: var(--color-primary-default);
+  border-color: var(--color-primary-default);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.step-input {
+  width: 32px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  /* Disable spinner arrows for cleaner look */
+  -moz-appearance: textfield;
+}
+
+.step-input::-webkit-outer-spin-button,
+.step-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ==========================================================================
+   VELOXITY CUSTOM INTERACTIVE CALENDAR POPUP STYLES
+   ========================================================================== */
+.velox-calendar-dropdown-modal {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 320px;
+  background: var(--surface-light);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px -10px rgba(11, 15, 25, 0.15);
+  padding: 1.25rem;
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 1000;
+  user-select: none;
+  cursor: default;
+}
+
+.velox-calendar-dropdown-modal.active {
+  display: flex;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cal-title-toggle {
+  background: transparent;
+  border: none;
+  font-family: var(--font-family-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s ease;
+}
+
+.cal-title-toggle:hover {
+  background: var(--surface-muted);
+  color: var(--color-primary-default);
+}
+
+.cal-nav-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.15s ease;
+}
+
+.cal-nav-btn:hover {
+  background: var(--surface-muted);
+  color: var(--text-main);
+}
+
+.cal-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+/* Day Names Header Row */
+.cal-weekday {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding-bottom: 6px;
+}
+
+/* Grid Cell Styling for Days, Months, and Years */
+.cal-cell {
+  padding: 8px 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-main);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s ease;
+}
+
+.cal-cell:hover {
+  background: var(--surface-muted);
+  color: var(--color-primary-default);
+  border-color: var(--border-default);
+}
+
+.cal-cell.muted {
+  color: var(--text-muted);
+  opacity: 0.4;
+}
+
+.cal-cell.today {
+  border-color: var(--color-primary-default);
+  color: var(--color-primary-default);
+  font-weight: 700;
+}
+
+.cal-cell.selected {
+  background: var(--color-primary-default) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+/* Override grid columns when viewing Months (3x4) or Years (3x4) */
+.cal-body.months-view,
+.cal-body.years-view {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.cal-body.months-view .cal-cell,
+.cal-body.years-view .cal-cell {
+  padding: 14px 0;
+  font-weight: 600;
+}
+
+/* Disabled / Past Dates Styling */
+.cal-cell.disabled {
+  color: var(--text-muted) !important;
+  opacity: 0.25 !important;
+  cursor: not-allowed !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.cal-cell.disabled:hover {
+  background: transparent !important;
+  color: var(--text-muted) !important;
+  border-color: transparent !important;
+}
