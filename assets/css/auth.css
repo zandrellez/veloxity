@@ -1,5 +1,10 @@
+/* ==========================================================================
+   Veloxity Authentication Stylesheet (assets/css/auth.css)
+   Fully integrated with centralized root tokens from globals.css
+   ========================================================================== */
+
 body {
-    background-color: #FFFFFF;
+    background-color: var(--color-surface-default);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -14,10 +19,10 @@ body {
     max-width: 950px;
     height: 580px;
     background: var(--surface-light);
-    border-radius: 16px;
-    box-shadow: 0 25px 50px -12px rgba(11, 15, 25, 0.15);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-intense);
     overflow: hidden;
-    border: 1px solid #E2E8F0;
+    border: 1px solid var(--border-subtle);
 }
 
 .forms-container {
@@ -64,7 +69,7 @@ form.sign-in-form {
 .title {
     font-size: 1.8rem;
     color: var(--text-main);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     font-weight: 800;
 }
 
@@ -106,7 +111,7 @@ form.sign-in-form {
 }
 
 .panel .content {
-    color: #fff;
+    color: var(--color-text-on-inverse);
     transition: transform 0.9s ease-in-out;
     transition-delay: 0.6s;
     max-width: 360px;
@@ -129,13 +134,13 @@ form.sign-in-form {
 
 .velox-btn.transparent {
     background: transparent;
-    border: 2px solid #fff;
+    border: 2px solid var(--surface-light);
     width: 120px;
     height: 36px;
     font-weight: 700;
     font-size: 0.75rem;
     border-radius: var(--radius-sm);
-    color: #fff;
+    color: var(--surface-light);
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -250,7 +255,7 @@ form.sign-in-form {
 
 .strength-bar {
     height: 4px;
-    background-color: #E2E8F0;
+    background-color: var(--border-subtle);
     border-radius: 2px;
     transition: background-color 0.3s ease;
 }
@@ -275,7 +280,7 @@ form.sign-in-form {
     font-size: 0.82rem;
     font-weight: 600;
     z-index: 1000;
-    box-shadow: 0 10px 25px -5px rgba(11, 15, 25, 0.15);
+    box-shadow: var(--shadow-subtle);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -286,4 +291,64 @@ form.sign-in-form {
 .velox-alert-banner.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   FIXES FOR INPUT ALIGNMENT & SOCIAL BUTTON REPAIR
+   ========================================================================== */
+
+/* Ensure all form inputs, wrappers, and buttons share the exact same width and alignment */
+form {
+    width: 100%;
+    max-width: 380px; /* Uniform container width for form elements */
+    margin: 0 auto;
+}
+
+.velox-input-field,
+.velox-password-wrapper,
+.velox-phone-wrapper,
+.velox-btn,
+.social-buttons-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Fix password wrapper layout so icon aligns perfectly */
+.velox-password-wrapper {
+    position: relative;
+    margin: 6px 0;
+}
+
+.velox-password-wrapper .velox-input-field {
+    margin: 0;
+}
+
+/* Repair Google & Facebook Social Buttons Grid */
+.social-buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 2px;
+}
+
+.velox-social-rect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 42px;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    background: var(--surface-light);
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.82rem;
+    transition: all 0.2s ease;
+}
+
+.velox-social-rect:hover {
+    border-color: var(--color-primary-default);
+    background: var(--surface-muted);
 }

@@ -12,9 +12,15 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veloxity - Transit & Cargo Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Syne (Display) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- External Scripts & Stylesheets -->
     <script src="assets/js/auth.js" defer></script>
-    <link rel="stylesheet" href="assets/css/globals.css">
+    <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/auth.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -36,7 +42,7 @@ if (session_status() === PHP_SESSION_NONE) {
             
                 <!-- Sign In Form -->
                 <form action="actions/auth_process.php" method="POST" class="sign-in-form">
-                    <h2 class="title">Welcome Back</h2>
+                    <h2 class="title font-display">Welcome Back</h2>
                     <p class="subtitle">Sign in to manage trips and track waybills.</p>
                     <div class="velox-input-field">
                         <input type="email" name="email" placeholder="Email Address" required />
@@ -73,7 +79,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                 <!-- Sign Up Form -->
                 <form action="actions/auth_process.php" method="POST" class="sign-up-form" id="signUpForm">
-                    <h2 class="title">Create Account</h2>
+                    <h2 class="title font-display">Create Account</h2>
                     <p class="subtitle">Get started with multi-operator booking.</p>
                     
                     <div class="velox-input-field" style="margin: 4px 0;">
@@ -87,7 +93,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <!-- Dynamic +63 Phone Input -->
                     <div class="velox-phone-wrapper" style="position: relative; width: 100%; max-width: 360px; margin: 4px 0;">
                         <div class="velox-input-field" id="phoneContainer" style="max-width: 100%; margin: 0; display: flex; align-items: center;">
-                            <span id="countryPrefix" style="display: none; font-weight: 600; color: var(--text-muted); font-size: 0.85rem; border-right: 1px solid #CBD5E1; padding-right: 6px; margin-right: 6px;">+63</span>
+                            <span id="countryPrefix" style="display: none; font-weight: 600; color: var(--text-muted); font-size: 0.85rem; border-right: 1px solid var(--border-default); padding-right: 6px; margin-right: 6px;">+63</span>
                             <input type="text" name="contact" id="phoneNumberInput" placeholder="Mobile Number" maxlength="10" pattern="[0-9]{10}" required style="border: none; outline: none; width: 100%; background: none;" />
                         </div>
                     </div>
@@ -119,8 +125,8 @@ if (session_status() === PHP_SESSION_NONE) {
                         <div class="velox-input-field">
                             <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required />
                         </div>
-                        <button type="button" class="toggle-password" id="togglePasswordBtn">
-                            <i class="fa-solid fa-eye" id="toggleIcon"></i>
+                        <button type="button" class="toggle-password">
+                            <i class="fa-solid fa-eye"></i>
                         </button>
                     </div>
 
@@ -152,18 +158,18 @@ if (session_status() === PHP_SESSION_NONE) {
             <!-- Left Panel (Visible in Sign-In Mode) -->
             <div class="panel left-panel">
                 <div class="content">
-                    <a href="index.php" class="tracking-widest text-xs">&larr; Back to Home</a>
-                    <h3 class="text-orange-400 font-bold tracking-widest uppercase text-xs">New to Veloxity?</h3>
+                    <a href="index.php" class="tracking-widest text-xs" style="color: var(--color-text-on-inverse); text-decoration: none;">&larr; Back to Home</a>
+                    <h3 style="color: var(--velox-primary);" class="font-display tracking-widest uppercase text-xs">New to Veloxity?</h3>
                     <p>"Connecting hubs, securing terminal schedules, and delivering cargo transparency with high-performance operational architecture."</p>
                     <button class="velox-btn transparent" id="sign-up-btn">Sign Up</button>
                 </div>
             </div>
 
-            <!-- Right Panel (Visible in Sign-Up Mode) -->
+            <!-- Right Panel (Visible in Sign-Sign-Up Mode) -->
             <div class="panel right-panel">
                 <div class="content">
-                    <a href="index.php" class="tracking-widest text-xs">&larr; Back to Home</a>
-                    <h3 class="text-orange-400 font-bold tracking-widest uppercase text-xs">One of us?</h3>
+                    <a href="index.php" class="tracking-widest text-xs" style="color: var(--color-text-on-inverse); text-decoration: none;">&larr; Back to Home</a>
+                    <h3 style="color: var(--velox-primary);" class="font-display tracking-widest uppercase text-xs">One of us?</h3>
                     <p>"Empowering transit operators and streamlining passenger journeys with precision network management."</p>
                     <button class="velox-btn transparent" id="sign-in-btn">Sign In</button>
                 </div>
