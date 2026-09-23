@@ -1,5 +1,7 @@
 /* ==========================================================================
    Ecosystem Component Stylesheet (assets/ecosystem.css)
+   Layout-only rules for ecosystem-grid.php. Colors, type, radii and shadows
+   are pulled from global.css tokens instead of hardcoded values.
    ========================================================================== */
 
 .ecosystem-section {
@@ -8,11 +10,11 @@
     width: 100%;
     margin: 0 auto;
     padding: 40px 100px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: #0F172A;
+    font-family: var(--font-family-body);
+    color: var(--text-main);
     box-sizing: border-box;
-    overflow: hidden; 
-    background: var(--surface-muted); /* Updated background */
+    overflow: hidden;
+    background: var(--surface-muted);
     min-height: 100vh;
     justify-content: center;
     scroll-snap-align: start; /* The magnetic snap point */
@@ -20,20 +22,21 @@
 
 /* Header Text & Subtext */
 .ecosystem-header {
-    margin-bottom: 24px;
+    margin-bottom: var(--space-6);
 }
 
 .ecosystem-header h2 {
+    font-family: var(--font-family-display);
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: #0F172A;
+    color: var(--text-main);
     margin-bottom: 6px;
 }
 
 .ecosystem-subtitle {
-    font-size: 1rem;
-    color: #64748B;
+    font-size: var(--text-lg);
+    color: var(--text-muted);
     font-weight: 400;
 }
 
@@ -41,7 +44,7 @@
 .ecosystem-grid {
     display: grid;
     grid-template-columns: 7fr 3fr;
-    gap: 32px;
+    gap: var(--space-8);
     align-items: stretch;
     width: 100%;
     max-width: 100%;
@@ -55,8 +58,8 @@
 
 /* Left Column: Map Box (70%) */
 .ecosystem-map-container {
-    background: #E2E8F0;
-    border-radius: 16px;
+    background: var(--border-subtle);
+    border-radius: var(--radius-card);
     width: 100%;
     min-height: 480px;
     display: flex;
@@ -64,13 +67,13 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    border: 1px solid #CBD5E1;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-default);
+    box-shadow: var(--shadow-subtle);
 }
 
 .map-placeholder-content {
     text-align: center;
-    color: #64748B;
+    color: var(--text-muted);
 }
 
 .map-placeholder-content svg {
@@ -83,7 +86,7 @@
 
 .map-placeholder-content p {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: var(--text-lg);
 }
 
 /* Right Column: Partner Operators Column (30% - Constrained width & hidden overflow) */
@@ -104,31 +107,41 @@
 .operators-header-group {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    margin-bottom: 12px;
+    gap: var(--space-1);
 }
 
 .operators-header-group h3 {
-    font-size: 1.35rem;
+    font-family: var(--font-family-display);
+    font-size: var(--text-xl);
     font-weight: 700;
-    color: #0F172A;
+    color: var(--text-main);
+    margin-bottom: 0;
 }
 
 .operators-subtext {
-    font-size: 0.85rem;
-    color: #64748B;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: 0;
 }
 
 .register-link {
+    font-size: var(--text-sm);
     font-weight: 600;
-    color: #FF6B00;
+    color: var(--color-secondary-default);
     text-decoration: none;
-    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.register-link:hover {
-    color: #E05E00;
-    text-decoration: underline;
+.register-link span {
+    transition: transform 0.2s ease;
+    font-weight: bolder;
+}
+
+.register-link:hover span {
+    transform: translateX(8px);
 }
 
 /* Marquee Wrapper & Rows */
@@ -139,7 +152,7 @@
     max-width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--space-1);
     flex-grow: 1;
     justify-content: space-around;
 }
@@ -157,17 +170,17 @@
 }
 .marquee-wrapper::before {
     left: 0;
-    background: linear-gradient(to right, #FFFFFF, transparent);
+    background: linear-gradient(to right, var(--surface-light), transparent);
 }
 .marquee-wrapper::after {
     right: 0;
-    background: linear-gradient(to left, #FFFFFF, transparent);
+    background: linear-gradient(to left, var(--surface-light), transparent);
 }
 
 .marquee-row {
     display: flex;
     width: max-content;
-    gap: 12px;
+    gap: var(--space-3);
 }
 
 /* Slower Smooth Animation */
@@ -188,23 +201,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 10px;
+    background: var(--surface-light);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
     padding: 14px 20px;
     white-space: nowrap;
     font-weight: 600;
-    font-size: 0.95rem;
-    color: #334155;
+    font-size: var(--text-md);
+    color: var(--color-text-secondary);
     min-width: 115px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
 }
 
 .operator-card:hover {
-    border-color: #FF6B00;
-    color: #FF6B00;
-    background: #FFF7ED;
+    border-color: var(--color-primary-default);
+    color: var(--color-primary-default);
+    background: var(--color-primary-subtle-bg);
 }
 
 /* Keyframes for Marquee */

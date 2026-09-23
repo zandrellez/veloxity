@@ -23,176 +23,232 @@
     gap: 4rem;
 }
 
-/* Wide Horizontal Stat Ticker */
+/* ---- Wide horizontal stat ticker ---- */
 .cargo-stats-wide {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  padding-bottom: var(--space-6);
+  width: 100%
 }
-
+ 
 .stat-item {
-    text-align: center;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  text-align: center;
+  min-width: 140px;
 }
-
+ 
 .stat-number {
-    display: block;
-    font-size: clamp(2.5rem, 4vw, 3.5rem); /* Massive, heavily emphasized numbers */
-    font-weight: 800;
-    color: var(--accent-color, #38bdf8);
-    letter-spacing: -0.03em;
-    margin-bottom: 0.25rem;
-    line-height: 1;
+  font-family: var(--font-family-display);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--velox-secondary);
+  line-height: 1;
 }
-
+ 
 .stat-label {
-    font-size: 0.8rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-weight: 600;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
-
+ 
 .stat-divider {
-    width: 1px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.08);
+  width: 1px;
+  height: 48px;
+  background: var(--border-inverse-subtle);
+  flex-shrink: 0;
 }
-
-@media (max-width: 768px) {
-    .cargo-stats-wide {
-        flex-direction: column;
-        gap: 2.5rem;
-        padding: 0;
-    }
-    .stat-divider {
-        width: 60px;
-        height: 1px;
-    }
-}
-
-/* Focused, Wider Tracking Command Card */
+ 
+/* ---- Tracking command card ---- */
 .cargo-command-card {
-    width: 100%;
-    max-width: 1050px; /* Increased from 900px to match search card */
-    background: var(--surface-muted); /* New light background */
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 1.25rem;
-    padding: 3rem;
-    box-shadow: 0 20px 40px -10px rgba(11, 15, 25, 0.15); /* Softer drop shadow */
+  max-width: 1050px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: var(--color-surface-default);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-intense);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
 }
-
+ 
 .cargo-card-header {
-    margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
-
+ 
 .cargo-badge {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: var(--accent-color, #38bdf8);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    display: block;
+  align-self: flex-start;
+  background: var(--color-secondary-subtle-bg);
+  color: var(--velox-secondary-hover);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
 }
-
+ 
 .cargo-card-header h3 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--text-main); /* Flipped to dark text */
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--text-main);
 }
-
-/* Tracking Input Group */
+ 
+/* ---- Tracking input row ---- */
 .cargo-input-group {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-3);
 }
-
+ 
 .input-wrapper {
-    flex: 1;
-    position: relative;
-    display: flex;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--surface-muted);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  height: var(--size-control-height);
+  padding: 0 1.15rem;
+  transition: all var(--transition-base);
 }
-
+ 
+.input-wrapper:focus-within {
+  background-color: var(--surface-light);
+  border-color: var(--color-border-focused);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+ 
 .tracking-icon {
-    position: absolute;
-    left: 1.25rem;
-    color: #64748b;
-    pointer-events: none;
+  stroke: var(--text-muted);
+  flex-shrink: 0;
 }
-
+ 
+.input-wrapper:focus-within .tracking-icon {
+  stroke: var(--color-primary-default);
+}
+ 
 .input-wrapper input {
-    width: 100%;
-    background: var(--surface-light); /* Clean white input field */
-    border: 1px solid #CBD5E1; /* Subtle border */
-    border-radius: 0.875rem;
-    padding: 1.1rem 1rem 1.1rem 3rem;
-    color: var(--text-main); /* Dark text when typing */
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text-main);
 }
-
-.input-wrapper input:focus {
-    outline: none;
-    border-color: var(--accent-color, #38bdf8);
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+ 
+.input-wrapper input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
 }
-
-/* Action Button */
+ 
 .btn-track-action {
-    background: var(--accent-color, #38bdf8);
-    color: #0f1115;
-    border: none;
-    border-radius: 0.875rem;
-    padding: 1.1rem 1.75rem;
-    font-size: 0.95rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: transform 0.2s ease, background 0.2s ease;
-    white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--size-control-height);
+  padding: 0 1.5rem;
+  background-color: var(--color-primary-default);
+  border: 2px solid var(--color-primary-default);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-on-primary);
+  font-family: var(--font-family-body);
+  font-weight: 700;
+  font-size: var(--text-base);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+  transition: all 0.25s ease;
 }
-
+ 
 .btn-track-action:hover {
-    background: #7dd3fc;
-    transform: translateY(-1px);
+  background-color: #FFFFFF;
+  color: var(--color-primary-default);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
-
-/* Sub-footer link */
-.cargo-sub-footer {
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    color: var(--text-muted);
+ 
+/* ---- Sub-footer link ---- */
+.cargo-sub-footer .cargo-subtext {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
 }
-
-.cargo-sub-footer a {
-    color: var(--accent-color, #38bdf8);
-    text-decoration: none;
+ 
+.cargo-sub-footer .cargo-sub-link {
+  font-size: var(--text-sm);
     font-weight: 600;
-    transition: opacity 0.2s ease;
+    color: var(--color-secondary-default);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+ 
+.cargo-sub-footer .cargo-sub-link span {
+    transition: transform 0.2s ease;
+    font-weight: bolder;
 }
 
-.cargo-sub-footer a:hover {
-    opacity: 0.8;
-    text-decoration: underline;
+.cargo-sub-footer .cargo-sub-link:hover span{
+    transform: translateX(8px);
 }
-
-@media (max-width: 768px) {
-    .cargo-input-group {
-        flex-direction: column;
-    }
-    .input-wrapper, .btn-track-action {
-        width: 100%;
-        justify-content: center;
-    }
-    .cargo-command-card {
-        padding: 2rem 1.5rem;
-    }
+ 
+/* ---- Responsive ---- */
+@media (max-width: 700px) {
+  .cargo-stats-wide {
+    gap: var(--space-4);
+  }
+ 
+  .stat-item {
+    min-width: 0;
+  }
+ 
+  .stat-number {
+    font-size: 1.6rem;
+  }
+ 
+  .stat-divider {
+    height: 34px;
+  }
+ 
+  .cargo-command-card {
+    padding: var(--space-6);
+  }
+ 
+  .cargo-input-group {
+    flex-direction: column;
+  }
+ 
+  .btn-track-action {
+    justify-content: center;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .cargo-stats-wide {
+    flex-wrap: wrap;
+    row-gap: var(--space-5);
+  }
+ 
+  .stat-divider {
+    display: none;
+  }
 }

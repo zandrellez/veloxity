@@ -18,7 +18,7 @@ $operators = [
         <h2>Terminal Network</h2>
         <p class="ecosystem-subtitle">Explore active terminal hubs and our trusted logistics partners across the network.</p>
     </div>
-
+ 
     <div class="ecosystem-grid">
         <!-- Left Side: Map Container (70%) -->
         <div class="ecosystem-map-container" id="mapContainer">
@@ -31,14 +31,16 @@ $operators = [
                 <p>Interactive Map showing Terminal Pins</p>
             </div>
         </div>
-
+ 
         <!-- Right Side: Partner Operators Marquee (30%) -->
         <div class="ecosystem-operators-container" id="operatorsContainer">
             <div class="operators-header-group">
                 <h3>Partner Operators</h3>
-                <p class="operators-subtext">Want to operate with us? <a href="operator/register.php" class="register-link">Register</a></p>
+                <p class="operators-subtext">Want to operate with us? 
+                    <a href="operator/register.php" class="register-link">Register <span>&rarr;</span></a>
+                </p>
             </div>
-
+ 
             <!-- Dynamic Marquee Wrapper -->
             <div class="marquee-wrapper" id="marqueeWrapper">
                 <!-- Rows will be injected dynamically via JS -->
