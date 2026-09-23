@@ -352,3 +352,173 @@ form {
     border-color: var(--color-primary-default);
     background: var(--surface-muted);
 }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN & MOBILE LAYOUT OVERRIDES
+   ========================================================================== */
+
+/* Tablet & Smaller Desktop Adjustments */
+@media (max-width: 992px) {
+    .velox-auth-container {
+        max-width: 850px;
+    }
+    .signin-signup {
+        width: 55%;
+        left: 72.5%;
+    }
+    .velox-auth-container.sign-up-mode .signin-signup {
+        left: 27.5%;
+    }
+    .panel {
+        padding: 3rem 2rem;
+    }
+}
+
+/* Mobile Devices: Stacked Layout & Fast Transitions */
+@media (max-width: 768px) {
+    body {
+        align-items: center;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .velox-auth-container {
+        height: auto;
+        min-height: 100vh;
+        border-radius: 0;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow-x: hidden;
+    }
+
+    /* Keep background static and behind everything */
+    .velox-auth-container:before {
+        width: 1500px;
+        height: 1500px;
+        left: 50%;
+        top: -30%;
+        transform: translateX(-50%);
+        right: auto;
+        transition: none;
+        z-index: 0;
+    }
+    
+    .velox-auth-container.sign-up-mode:before {
+        transform: translateX(-50%);
+        top: -30%;
+        left: 50%;
+    }
+
+    /* Release forms from absolute positioning so they push the panel down */
+    .forms-container {
+        position: relative; 
+        height: auto;
+        flex: 1; 
+        display: flex;
+        align-items: center;
+        z-index: 10;
+        padding: 1rem 0 0 0;
+    }
+
+    .signin-signup {
+        position: relative;
+        width: 100%;
+        left: auto;
+        top: auto;
+        transform: none;
+        transition: none !important; /* Kills the 0.7s delay container lock */
+        display: grid; /* Stacks forms in the exact same cell naturally */
+        grid-template-columns: 1fr;
+    }
+
+    .velox-auth-container.sign-up-mode .signin-signup {
+        left: auto;
+        top: auto;
+        transform: none;
+    }
+
+    form {
+        padding: 0 1.5rem;
+        box-sizing: border-box; 
+        grid-area: 1 / 1; 
+        transition: opacity 0.3s ease-in-out !important;
+    }
+
+    .title { font-size: 1.4rem; margin-bottom: 2px; }
+    .subtitle { font-size: 0.75rem; margin-bottom: 0.5rem; }
+    .velox-password-wrapper, .velox-phone-wrapper, .velox-input-field { margin: 4px 0 !important; }
+    .social-buttons-grid { margin-top: 2px; gap: 8px; }
+    .velox-btn { margin-top: 4px; padding: 10px 24px; }
+    .password-strength-container { margin-bottom: 2px; }
+
+    /* Restructure panels to stack at the bottom without overlapping */
+    .panels-container {
+        position: relative;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        z-index: 10;
+    }
+
+    .panel {
+        position: relative;
+        bottom: auto;
+        width: 100%;
+        padding: 1rem 1.5rem 2.5rem 1.5rem;
+        margin-top: -10px;
+        box-sizing: border-box;
+        align-items: center !important;
+        text-align: center !important;
+        transition: none !important;
+    }
+    
+    .panel a { display: none; }
+    .panel p { display: none; }
+    .panel h3 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 12px; }
+
+    .panel .content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: none !important;
+        transition: none !important; 
+    }
+
+    /* Physically remove inactive panels from layout to prevent height jumping */
+    .left-panel { display: flex; }
+    .right-panel { display: none; }
+    
+    .velox-auth-container.sign-up-mode .left-panel { display: none; }
+    .velox-auth-container.sign-up-mode .right-panel { display: flex; }
+
+    .velox-btn.transparent {
+        width: 100%;
+        max-width: 340px;
+        background: var(--surface-muted);
+        border: 1px solid var(--border-default);
+        color: var(--text-main);
+    }
+}
+
+/* Small Mobile Devices (e.g., iPhone SE) */
+@media (max-width: 480px) {
+    .velox-auth-container {
+        min-height: 650px;
+    }
+    
+    .signin-signup {
+        top: 42%;
+    }
+    
+    .social-buttons-grid {
+        gap: 8px;
+    }
+    
+    .velox-social-rect {
+        font-size: 0.75rem;
+        height: 38px;
+    }
+}

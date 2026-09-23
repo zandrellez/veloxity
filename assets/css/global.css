@@ -152,6 +152,56 @@
     --shadow-dropdown: 0 15px 35px -5px rgba(0, 0, 0, 0.12);
     --glow-primary: 0 4px 12px rgba(255, 107, 0, 0.3);
   }
+
+  /* Tablet Landscape / Small Desktop */
+  @media (max-width: 1024px) {
+    :root {
+      --space-10: 4rem;
+      --space-8: 1.75rem;
+      --text-3xl: 2.5rem;
+      --text-xl: 1.15rem;
+    }
+  }
+
+  /* Tablet Portrait */
+  @media (max-width: 768px) {
+    :root {
+      /* Spacing & Layout Scaling */
+      --space-10: 3rem;
+      --space-8: 1.5rem;
+      --space-6: 1.25rem;
+      --space-5: 1rem;
+      --space-4: 0.875rem;
+
+      /* Typography Scaling */
+      --text-3xl: 2rem;
+      --text-xl: 1.1rem;
+      --text-lg: 0.95rem;
+      --text-base: 0.85rem;
+
+      /* Component Sizing */
+      --size-control-height: 44px;
+      --size-logo-height: 32px;
+    }
+  }
+
+  /* Mobile Devices */
+  @media (max-width: 480px) {
+    :root {
+      /* Tighter spacing for narrow viewports */
+      --space-10: 2rem;
+      --space-8: 1.25rem;
+      --space-6: 1rem;
+
+      /* Condensed typography */
+      --text-3xl: 1.75rem;
+      --text-xl: 1rem;
+      --text-lg: 0.9rem;
+
+      /* Compact component adjustments */
+      --size-control-height: 40px;
+    }
+  }
 }
 
 /* ==========================================================================
@@ -449,7 +499,6 @@ body {
   font-weight: 700;
   font-size: 0.95rem;
   color: var(--text-main);
-  /* Disable spinner arrows for cleaner look */
   -moz-appearance: textfield;
 }
 
@@ -538,7 +587,6 @@ body {
   text-align: center;
 }
 
-/* Day Names Header Row */
 .cal-weekday {
   font-size: 0.75rem;
   font-weight: 600;
@@ -547,7 +595,6 @@ body {
   padding-bottom: 6px;
 }
 
-/* Grid Cell Styling for Days, Months, and Years */
 .cal-cell {
   padding: 8px 0;
   font-size: 0.85rem;
@@ -587,7 +634,6 @@ body {
   box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
 }
 
-/* Override grid columns when viewing Months (3x4) or Years (3x4) */
 .cal-body.months-view,
 .cal-body.years-view {
   grid-template-columns: repeat(4, 1fr);
@@ -613,4 +659,22 @@ body {
   background: transparent !important;
   color: var(--text-muted) !important;
   border-color: transparent !important;
+}
+
+/* Base structural adjustments for mobile */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  .btn-primary, 
+  .velox-btn, 
+  .btn-secondary {
+    padding: 10px 20px;
+  }
+  
+  .velox-input-field,
+  .velox-input-box {
+    padding: 0 0.85rem;
+  }
 }
