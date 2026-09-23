@@ -4,13 +4,12 @@
 
 .velox-footer {
     background-color: var(--velox-slate); /* Updated background */
-    color: #FFFFFF;
+    color: var(--text-muted);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     width: 100%;
-    padding: 120px 20px 50px 20px;
+    padding: 100px 20px 50px 20px;
     margin-top: 0; /* Removed margin to prevent a gap before snapping */
     box-sizing: border-box;
-    border-top: 1px solid rgba(255, 107, 0, 0.2);
     scroll-snap-align: end; /* Snaps to the bottom edge */
 }
 
@@ -49,9 +48,10 @@
 .footer-col h4 {
     font-size: 0.9rem;
     font-weight: 700;
-    color: #FFFFFF;
+    color: var(--color-text-on-inverse);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin: 0 auto;
 }
 
 .footer-col ul {
@@ -65,18 +65,18 @@
 
 .footer-col ul li a {
     font-size: 0.9rem;
-    color: #94A3B8;
+    color: var(--text-muted);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .footer-col ul li a:hover {
-    color: #FF6B00;
+    color: var(--velox-secondary); 
 }
 
 .footer-copyright {
     font-size: 0.82rem;
-    color: #64748B;
+    color: var(--text-muted);
     margin-top: 30px;
 }
 
@@ -97,13 +97,14 @@
     font-size: 0.95rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #94A3B8;
+    color: var(--text-muted);
 }
 
 .footer-cta-headline {
-    font-size: clamp(2.5rem, 3.7vw, 3.5rem);
+    font-size: var(--text-3xl);
+    font-family: var(--font-family-display);
     font-weight: 800;
-    color: #FF6B00; /* Blaze Orange as requested */
+    color: var(--velox-primary);
     text-decoration: none;
     line-height: 1.1;
     display: inline-flex;
@@ -137,14 +138,14 @@
 .footer-brand-logo {
     font-size: 1.6rem;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--color-text-on-inverse);
     letter-spacing: -0.01em;
+    margin: 0;
 }
 
 .footer-brand-desc {
     font-size: 0.9rem;
-    color: #94A3B8;
-    line-height: 1.4;
+    color: var(--text-muted);
 }
 
 /* Responsive breakpoint */

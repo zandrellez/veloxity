@@ -3,7 +3,6 @@
     position: relative;
     z-index: 20;
     width: 100%;
-    padding: 6rem 2rem;
     background: var(--velox-slate);
     color: var(--gp-ink, #f8fafc);
     min-height: 100vh;
@@ -14,8 +13,7 @@
 }
 
 .cargo-container {
-    width: 100%; /* This is the fix that forces it back to full width */
-    max-width: 1150px; 
+    width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
