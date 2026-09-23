@@ -39,7 +39,6 @@
 
     const section = document.getElementById('gp-veloxity');
     if (!section) return;
-    const nextSection = section.nextElementSibling;
 
     const text = "VELOXITY";
     const characters = Array.from(text).map((char, index) => ({ char, index }));
@@ -175,18 +174,14 @@
     section.addEventListener('wheel', (e) => {
         const atHeroStart = section.scrollTop <= 0;
         const atHeroEnd = section.scrollTop >= section.scrollHeight - section.clientHeight - 1;
-        const atPageTop = window.scrollY === 0;
         const heroComplete = section.classList.contains('entered') || atHeroEnd;
-        const nextSectionVisible = window.scrollY > 0 && nextSection && (() => {
-            const bounds = nextSection.getBoundingClientRect();
-            return bounds.top < window.innerHeight && bounds.bottom > 0;
-        })();
 
-        if (nextSectionVisible) {
+        if (!heroComplete && window.scrollY > section.offsetTop) {
             e.preventDefault();
-            window.scrollBy(0, e.deltaY);
-            return;
+            window.scrollTo({ top: section.offsetTop, left: 0, behavior: 'auto' });
         }
+
+        const atPageTop = window.scrollY <= section.offsetTop;
 
         if (heroComplete && !atPageTop) return;
 

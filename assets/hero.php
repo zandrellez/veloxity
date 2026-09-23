@@ -7,7 +7,7 @@
         <svg data-gp-art aria-hidden="true" focusable="false">
             <defs>
                 <clipPath id="gp-veloxity-clip" clipPathUnits="userSpaceOnUse">
-                    <text data-gp-glyph x="0" y="0" style="font-weight: 700; font-size: 100px; font-kerning: none;">VELOXITY</text>
+                    <text data-gp-glyph x="0" y="0" style="font-weight: bolder; font-size: 100px; font-kerning: none;">VELOXITY</text>
                 </clipPath>
             </defs>
             <g data-gp-marks><path /></g>
@@ -30,8 +30,8 @@
         <div data-gp-caption>
             <span data-gp-hint aria-hidden="true">Scroll to enter.</span>
             <div style="display: flex; gap: 16px;">
-                <a data-gp-enter href="/book-trip.php">Book Trip<span aria-hidden="true">↗</span></a>
-                <a data-gp-enter href="/send-cargo.php">Send Cargo<span aria-hidden="true">↗</span></a>
+                <a data-gp-book href="/book-trip.php">Book Trip<span aria-hidden="true">↗</span></a>
+                <a data-gp-send href="/send-cargo.php">Send Cargo<span aria-hidden="true">↗</span></a>
             </div>
         </div>
     </div>

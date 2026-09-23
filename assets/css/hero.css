@@ -2,7 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background: var(--surface-light);
 }
 
@@ -17,7 +17,7 @@ body, html {
     color: var(--velox-dark);
     font-family: var(--font-family-body);
     width: 100%;
-    height: min(720px, 100svh);
+    height: 100svh;
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -81,10 +81,16 @@ body, html {
 .glyph-portal [data-gp-front] * { pointer-events: var(--gp-caption-hit, auto); }
 .glyph-portal [data-gp-hint] { display: none; }
 
-.glyph-portal [data-gp-enter] {
+.glyph-portal [data-gp-book] {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 24px; background-color: var(--color-primary-default); border: 2px solid var(--color-primary-default); border-radius: var(--radius-sm); color: var(--color-text-on-primary); font-family: var(--font-family-body); font-size: 13px; font-weight: 700; box-shadow: var(--shadow-md); transition: all 0.25s ease; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer;
 }
-.glyph-portal [data-gp-enter]:hover { background-color: #FFFFFF; color: var(--color-primary-default); border-color: var(--color-primary-default); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.glyph-portal [data-gp-book]:hover { background-color: #FFFFFF; color: var(--color-primary-default); border-color: var(--color-primary-default); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+.glyph-portal [data-gp-send] {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 24px; background-color: #FFFFFF; border: 2px solid var(--color-primary-default); border-radius: var(--radius-sm); color: var(--color-primary-default); font-family: var(--font-family-body); font-size: 13px; font-weight: 700; box-shadow: var(--shadow-md); transition: all 0.25s ease; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer;
+}
+.glyph-portal [data-gp-send]:hover { background-color: var(--color-primary-default); color: #FFFFFF; border-color: var(--color-primary-default); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
 
 .glyph-portal [data-gp-content] {
     box-sizing: border-box; position: relative; min-height: var(--gp-height, 100svh); padding: 5.5rem clamp(1.25rem, 5cqw, 5rem) 6.5rem; display: grid; align-content: center; color: var(--surface-muted); background: var(--velox-dark); overflow-wrap: anywhere;
