@@ -22,14 +22,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Toggle Modal
     trigger.addEventListener("click", (e) => {
         e.stopPropagation();
-        modal.classList.toggle("active");
+        const shouldOpen = !modal.classList.contains("active");
+        if (window.veloxCloseDropdowns) window.veloxCloseDropdowns(modal);
+        modal.classList.toggle("active", shouldOpen);
         renderCalendar();
     });
 
     modal.addEventListener("click", (e) => e.stopPropagation());
 
     document.addEventListener("click", () => {
-        modal.classList.remove("active");
+        if (window.veloxCloseDropdowns) {
+            window.veloxCloseDropdowns();
+        } else {
+            modal.classList.remove("active");
+        }
         viewMode = "days"; // reset view on close
     });
 

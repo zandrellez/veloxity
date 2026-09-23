@@ -28,11 +28,6 @@
     z-index: 10;
     width: 100%;
     max-width: 1050px;
-    padding: 3rem 2.5rem;
-    background: var(--surface-light);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    box-shadow: 0 20px 40px -10px rgba(11, 15, 25, 0.05);
     
     /* Animation Start State */
     opacity: 0; 
@@ -40,381 +35,272 @@
     will-change: transform, opacity;
 }
 
-.velox-search-wrapper-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: stretch;
+.search-trip-card {
+  display: grid;
+  grid-template-columns: minmax(320px, 460px) 1fr;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  background-color: var(--color-surface-default);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-subtle);
 }
-
-.velox-search-form-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+ 
+.search-trip-card:hover {
+  /* the base .velox-card hover lift is too aggressive for a large container */
+  transform: none;
+  box-shadow: var(--shadow-subtle);
 }
-
-.search-form-header {
-    margin-bottom: 1.25rem;
+ 
+.search-trip-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
-
-.search-form-header h3 {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-main);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+ 
+.search-eyebrow {
+  font-family: var(--font-family-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: var(--space-2);
 }
-
-.velox-vertical-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
+ 
+/* ---- shared icon treatment inside velox-input-box ---- */
+.field-icon {
+  width: 18px;
+  height: 18px;
+  stroke: var(--text-muted);
+  flex-shrink: 0;
 }
-
-/* Universal Input Box styling */
-.velox-input-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: #FFFFFF; /* Crisp white instead of gray */
-    border: 1px solid #CBD5E1; /* Clean, subtle outline */
-    border-radius: 8px; /* Softer, modern corners */
-    padding: 0.85rem 1.15rem;
-    gap: 12px;
-    cursor: pointer;
-    user-select: none;
-    transition: all 0.2s ease;
+ 
+.velox-input-box:hover .field-icon,
+.velox-input-box:focus-within .field-icon {
+  stroke: var(--color-primary-default);
 }
-
-.velox-input-box:hover{
-    border-color: var(--velox-primary);
-    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.08); /* Soft orange glow on hover */
+ 
+/* ---- Passengers control ---- */
+.passenger-trigger {
+  position: relative;
+  justify-content: space-between;
 }
-
-.plain-icon {
-    width: 18px;
-    height: 18px;
-    stroke: var(--text-main);
-    flex-shrink: 0;
+ 
+.passenger-trigger .chevron {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-muted);
+  transition: transform var(--transition-base);
 }
-
-.plain-arrow {
-    width: 16px;
-    height: 16px;
-    stroke: var(--text-main);
-    flex-shrink: 0;
+ 
+.passenger-trigger.open .chevron {
+  transform: rotate(180deg);
 }
-
-.input-content {
-    flex-grow: 1;
+ 
+.passenger-trigger .trigger-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
 }
-
-.input-placeholder {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-main);
+ 
+#passengerValueDisplay {
+  font-weight: 500;
+  font-size: var(--text-base);
+  color: var(--text-main);
 }
-
-/* Stacked Origin/Destination Box */
-.stacked-box {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 0.4rem 1.15rem;
-    gap: 0;
+ 
+.passenger-popup-menu .btn-primary {
+  align-self: flex-end;
+  padding: 8px 20px;
+  font-size: var(--text-sm);
+  box-shadow: none;
 }
-
+ 
+/* ---- Origin / Destination stacked control ---- */
+.location-box {
+  position: relative;
+}
+ 
+.location-box .stacked-row input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text-main);
+}
+ 
+.location-box .stacked-row input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+ 
+.swap-btn {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border-default);
+  background: var(--surface-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all var(--transition-base);
+}
+ 
+.swap-btn:hover {
+  background: var(--color-primary-default);
+  border-color: var(--color-primary-default);
+}
+ 
+.swap-btn:hover svg {
+  stroke: #fff;
+}
+ 
+.swap-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--text-muted);
+}
+ 
+/* location suggestion dropdowns anchor to each stacked-row */
 .stacked-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 0.5rem 0;
-    position: relative;
+  position: relative;
 }
-
-/* Custom Dropdown Menu */
-.velox-custom-dropdown {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: -12px; /* Aligns with the padding of the parent box */
-    width: calc(100% + 24px);
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.12);
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    z-index: 110;
-    overflow: hidden;
+ 
+.stacked-row .velox-custom-dropdown {
+  top: calc(100% + 2px);
+  left: -14px;
+  width: calc(100% + 28px);
 }
-
-.velox-custom-dropdown.active {
-    display: flex; /* Shown when clicked */
-}
-
-/* Individual Options */
+ 
 .custom-option {
-    padding: 0.85rem 1.15rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-main);
-    transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
 }
-
-.custom-option:hover {
-    background: var(--surface-muted);
-    color: var(--velox-primary);
+ 
+.custom-option svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--text-muted);
+  flex-shrink: 0;
 }
-
-.input-divider {
-    height: 1px;
-    background: #CBD5E1;
-    width: calc(100% - 30px);
-    margin-left: 30px;
+ 
+/* ---- Date control ---- */
+.date-trigger {
+  justify-content: space-between;
 }
-
-.velox-native-select, .velox-native-date {
-    background: transparent;
-    border: none;
-    outline: none;
-    font-family: inherit;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-main);
-    width: 100%;
-    cursor: pointer;
+ 
+.date-trigger .trigger-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-
-/* Search Submit Button */
-.velox-search-action-btn {
-    background: var(--velox-primary); /* Bold orange by default */
-    border: none;
-    border-radius: 8px; /* Matches the new input box radius */
-    padding: 1.1rem;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: #FFFFFF;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-top: 0.5rem;
-    box-shadow: 0 4px 15px rgba(255, 107, 0, 0.25); /* Persistent soft drop shadow */
+ 
+/* ---- Search submit ---- */
+.search-submit-btn {
+  width: 100%;
+  margin-top: var(--space-2);
+  height: var(--size-control-height);
+  font-size: var(--text-base);
 }
-
-.velox-search-action-btn:hover {
-    background: #E05E00; /* Darker orange on hover (var(--velox-primary-hover)) */
-    transform: translateY(-2px); /* Satisfying lift effect */
-    box-shadow: 0 6px 20px rgba(255, 107, 0, 0.35);
+ 
+/* ---- Popular routes ---- */
+.popular-routes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
 }
-
-/* Popular Routes Section */
-.velox-quick-routes {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 2rem;
-    flex-wrap: wrap;
+ 
+.popular-routes-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-muted);
 }
-
-.quick-label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    font-weight: 400;
-    margin-right: 4px;
-}
-
+ 
 .route-chip {
-    background: #EAECEF;
-    border: none;
-    padding: 0.35rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.15s ease;
+  border: none;
+  background: var(--color-secondary-subtle-bg);
+  color: var(--text-main);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-base);
 }
-
+ 
 .route-chip:hover {
-    background: var(--velox-primary);
-    color: #fff;
+  background: var(--color-secondary-default);
+  color: var(--color-text-on-secondary);
+  transform: translateY(-1px);
 }
-
-/* Passenger Popup Stepper Menu */
-.passenger-popup-menu {
-    position: absolute;
-    top: calc(100% + 12px); /* Pushed slightly further down for breathing room */
-    left: 0;
-    width: 100%;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px; /* Smoother outer corners */
-    box-shadow: 0 24px 48px -12px rgba(11, 15, 25, 0.15); /* Premium, deep shadow */
-    padding: 1.5rem;
-    display: none;
-    flex-direction: column;
-    gap: 1.15rem;
-    z-index: 100;
-    cursor: default;
+ 
+/* ---- Right-hand showcase image ---- */
+.search-trip-visual {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: 420px;
+  background: linear-gradient(160deg, var(--velox-slate), var(--velox-dark));
 }
-
-.passenger-popup-menu.active {
-    display: flex;
+ 
+.search-trip-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-
-.popup-header {
-    font-size: 0.82rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    border-bottom: 1px solid #E2E8F0;
-    padding-bottom: 0.5rem;
+ 
+.search-trip-visual .visual-caption {
+  position: absolute;
+  left: var(--space-6);
+  bottom: var(--space-6);
+  right: var(--space-6);
+  color: var(--color-text-on-inverse);
 }
-
-.stepper-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+ 
+.search-trip-visual .visual-caption strong {
+  display: block;
+  font-family: var(--font-family-display);
+  font-size: var(--text-xl);
 }
-
-.stepper-info {
-    display: flex;
-    flex-direction: column;
+ 
+.search-trip-visual .visual-caption span {
+  font-size: var(--text-sm);
+  opacity: 0.8;
 }
-
-.p-type {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--text-main);
-}
-
-.p-desc {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-}
-
-.stepper-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.step-btn {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: var(--surface-muted);
-    border: 1px solid #CBD5E1;
-    color: var(--text-main);
-    font-weight: 700;
-    font-size: 0.85rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s ease;
-}
-
-.step-btn:hover {
-    background: var(--velox-primary);
-    border-color: var(--velox-primary);
-    color: #fff;
-}
-
-.step-input {
-    width: 22px;
-    text-align: center;
-    border: none;
-    background: transparent;
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 0.88rem;
-    color: var(--text-main);
-}
-
-/* Right Side Image Box matching Wireframe */
-.velox-search-image-container {
-    background: #EAECEF;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 340px;
-}
-
-.image-placeholder-box {
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    color: #94A3B8;
-}
-
-/* Responsive layout for mobile */
+ 
+/* ---- Responsive ---- */
 @media (max-width: 900px) {
-    .velox-search-wrapper-split {
-        grid-template-columns: 1fr;
-    }
-    .velox-search-master-card {
-        padding: 1.5rem;
-    }
+  .search-trip-card {
+    grid-template-columns: 1fr;
+  }
+ 
+  .search-trip-visual {
+    min-height: 260px;
+    order: -1;
+  }
 }
-
-/* ==========================================================================
-   Flatpickr Veloxity Theme Overrides
-   ========================================================================== */
-.flatpickr-calendar {
-    background: #FFFFFF !important;
-    border: 1px solid #E2E8F0 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 24px 48px -12px rgba(11, 15, 25, 0.15) !important; /* Matches your custom dropdown shadow */
-    padding: 10px 5px !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+ 
+@media (max-width: 480px) {
+  .search-trip-section {
+    padding: 0 var(--space-4);
+    margin: 1.5rem auto;
+  }
+ 
+  .search-trip-card {
+    padding: var(--space-5);
+  }
 }
-
-/* Header & Month/Year Text */
-.flatpickr-months .flatpickr-month,
-.flatpickr-current-month .flatpickr-monthDropdown-months {
-    color: var(--text-main) !important;
-    font-weight: 700 !important;
-}
-
-/* Arrows */
-.flatpickr-prev-month svg, 
-.flatpickr-next-month svg {
-    fill: var(--text-muted) !important;
-}
-
-/* Selected Date Highlight (Blaze Orange) */
-.flatpickr-day.selected, 
-.flatpickr-day.startRange, 
-.flatpickr-day.endRange, 
-.flatpickr-day.selected.inRange, 
-.flatpickr-day.startRange.inRange, 
-.flatpickr-day.endRange.inRange, 
-.flatpickr-day.selected:focus, 
-.flatpickr-day.startRange:focus, 
-.flatpickr-day.endRange:focus, 
-.flatpickr-day.selected:hover, 
-.flatpickr-day.startRange:hover, 
-.flatpickr-day.endRange:hover, 
-.flatpickr-day.selected.prevMonthDay, 
-.flatpickr-day.startRange.prevMonthDay, 
-.flatpickr-day.endRange.prevMonthDay, 
-.flatpickr-day.selected.nextMonthDay, 
-.flatpickr-day.startRange.nextMonthDay, 
-.flatpickr-day.endRange.nextMonthDay {
-    background: var(--velox-primary) !important;
-    border-color: var(--velox-primary) !important;
-    color: #FFFFFF !important;
-    font-weight: 700;
-}
-
-/* Hover State for Unselected Days */
-.flatpickr-day:hover {
-    background: var(--surface-muted) !important;
-    border-color: transparent !important;
-    color: var(--velox-primary) !important;
-}
-

@@ -1,6 +1,16 @@
 <?php
 session_start(); // Start session for auth handling
 // require_once 'includes/supabase.php'; // Uncomment when ready
+
+$popular_routes = [
+    ['from' => 'Manila',  'to' => 'Baguio'],
+    ['from' => 'Cebu',    'to' => 'Bohol'],
+    ['from' => 'Davao',   'to' => 'Cagayan de Oro'],
+];
+ 
+$origin_suggestions = ['Manila', 'Quezon City', 'Cebu City', 'Davao City'];
+$destination_suggestions = ['Baguio', 'Bohol', 'Cagayan de Oro', 'Iloilo City'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,5 +48,8 @@ session_start(); // Start session for auth handling
     <script src="assets/js/hero.js"></script>
     <script src="assets/js/search.js"></script>
     <script src="assets/js/cargo.js"></script>
+    <script src="assets/js/suggestions.js"></script>
+    <script src="assets/js/dropdown.js"></script>
+    <script src="assets/js/datepicker.js"></script>
 </body>
 </html>

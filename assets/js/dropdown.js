@@ -1,28 +1,51 @@
+const dropdownSelectors = [
+    ".passenger-popup-menu",
+    ".velox-custom-dropdown",
+    ".velox-calendar-dropdown-modal"
+];
+
+window.veloxCloseDropdowns = function (except) {
+    document.querySelectorAll(dropdownSelectors.join(", ")).forEach((menu) => {
+        if (menu !== except) menu.classList.remove("active");
+    });
+    const passengerToggle = document.getElementById("passengerDropdownToggle");
+    if (passengerToggle && except !== document.getElementById("passengerPopupMenu")) {
+        passengerToggle.classList.remove("open");
+    }
+};
+
 const dropdownToggle = document.getElementById("passengerDropdownToggle");
-        const popupMenu = document.getElementById("passengerPopupMenu");
-        const summaryText = document.getElementById("passengerSummaryText");
+const popupMenu = document.getElementById("passengerPopupMenu");
+const summaryText = document.getElementById("passengerSummaryText");
 
-        dropdownToggle.addEventListener("click", (e) => {
-            e.stopPropagation();
-            popupMenu.classList.toggle("active");
-        });
+if (dropdownToggle && popupMenu) {
+    dropdownToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const shouldOpen = !popupMenu.classList.contains("active");
+        window.veloxCloseDropdowns(popupMenu);
+        popupMenu.classList.toggle("active", shouldOpen);
+        dropdownToggle.classList.toggle("open", shouldOpen);
+    });
 
-        document.addEventListener("click", () => {
-            popupMenu.classList.remove("active");
-        });
+    popupMenu.addEventListener("click", (e) => e.stopPropagation());
+}
 
-        popupMenu.addEventListener("click", (e) => e.stopPropagation());
+document.addEventListener("click", () => {
+    window.veloxCloseDropdowns();
+});
 
-        document.querySelectorAll(".step-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const action = btn.getAttribute("data-action");
-                const target = document.getElementById(btn.getAttribute("data-target"));
-                let val = parseInt(target.value);
-                if(action === "increase" && val < 10) target.value = val + 1;
-                if(action === "decrease" && val > 0) target.value = val - 1;
-                
-                const reg = parseInt(document.getElementById("p_regular").value);
-                const sen = parseInt(document.getElementById("p_senior").value);
-                summaryText.textContent = `${reg + sen} Passenger(s)`;
-            });
-        });
+document.querySelectorAll(".step-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const target = document.getElementById(btn.getAttribute("data-target"));
+        if (!target) return;
+
+        const action = btn.getAttribute("data-action");
+        const value = parseInt(target.value, 10) || 0;
+        if (action === "increase" && value < 10) target.value = value + 1;
+        if (action === "decrease" && value > 0) target.value = value - 1;
+
+        const regular = parseInt(document.getElementById("p_regular").value, 10) || 0;
+        const senior = parseInt(document.getElementById("p_senior").value, 10) || 0;
+        if (summaryText) summaryText.textContent = `${regular + senior} Passenger(s)`;
+    });
+});
