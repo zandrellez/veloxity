@@ -75,8 +75,8 @@
     let raf = 0, active = true;
 
     function readInk() {
-        const fontStr = "700 100px 'Arial Black', Arial, sans-serif";
-        const scanFont = "700 300px 'Arial Black', Arial, sans-serif";
+        const fontStr = "700 100px 'Syne', 'Arial Black', Arial, sans-serif";
+        const scanFont = "700 300px 'Syne', 'Arial Black', Arial, sans-serif";
         context.font = fontStr;
         const metrics = context.measureText(text);
         
@@ -201,4 +201,11 @@
     
     layout();
     frame();
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            layout();
+            frame();
+        });
+    }
 })(); // Keep the existing IIFE closing tag

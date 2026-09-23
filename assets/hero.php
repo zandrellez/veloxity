@@ -1,5 +1,4 @@
-<!-- Translated from the provided React GlyphPortal component[cite: 1] -->
-<section id="gp-veloxity" class="glyph-portal" aria-label="VELOXITY" style="--gp-length: 2.4; --gp-characters: 8; font-family: 'Arial Black', Arial, sans-serif;">
+<section id="gp-veloxity" class="glyph-portal" aria-label="VELOXITY" style="--gp-length: 2.4; --gp-characters: 8;">
     <div data-gp-viewport aria-hidden="true"></div>
     <div data-gp-pin>
         <div data-gp-field aria-hidden="true">
