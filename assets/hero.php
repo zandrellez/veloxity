@@ -37,19 +37,19 @@
     </div>
     <div data-gp-content id="gp-veloxity-content" tabindex="-1">
         <div data-slipstream-copy>
-            <h2>A different way into what comes next.</h2>
+            <h2>A smarter way to move across the network.</h2>
             <div data-slipstream-features>
                 <div data-slipstream-feature>
-                    <h3><span data-slipstream-no>01</span>Choose your way in</h3>
-                    <p>Pick any letter, then scroll. Each path takes you into the same green.</p>
+                    <h3><span data-slipstream-no>01</span>Intelligent Routing & Fares</h3>
+                    <p>Instant calculation of regional transport schedules and statutory discounts, keeping your travel planning transparent and frictionless.</p>
                 </div>
                 <div data-slipstream-feature>
-                    <h3><span data-slipstream-no>02</span>Set the scene</h3>
-                    <p>A gradient, photograph, video or canvas can sit behind the word.</p>
+                    <h3><span data-slipstream-no>02</span>Unified Hub Logistics</h3>
+                    <p>Seamlessly bridge passenger ticketing and parcel cargo shipping into a single enterprise-grade ecosystem.</p>
                 </div>
                 <div data-slipstream-feature>
-                    <h3><span data-slipstream-no>03</span>Keep going</h3>
-                    <p>The next section is yours. Add a story, a project, or a reason to stay. You can also refer to hero.txt for further documentation.</p>
+                    <h3><span data-slipstream-no>03</span>Verified Multi-Operator Trust</h3>
+                    <p>Every partner transport line undergoes strict compliance checks, ensuring secure, regulated, and reliable journeys from terminal to terminal.</p>
                 </div>
             </div>
         </div>

@@ -210,34 +210,78 @@
 }
  
 /* ---- Responsive ---- */
+@media (max-width: 900px) {
+    .velox-cargo-section {
+        padding: 0 var(--space-6); 
+        box-sizing: border-box;
+    }
+    .cargo-container { 
+        gap: 3rem; 
+        box-sizing: border-box; 
+    }
+}
 @media (max-width: 700px) {
-  .cargo-stats-wide {
-    gap: var(--space-4);
+  .velox-cargo-section {
+    padding: 4rem var(--space-4);
+    box-sizing: border-box !important;
   }
+
+  .cargo-container {
+    width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box !important;
+  }
+
+  .cargo-stats-wide {
+    flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        gap: var(--space-1);
+        width: 100%;
+  }
+
+  .cargo-card-header h3 {
+        font-size: 1.5rem;
+    }
+
+    /* Stack the input and tracking button vertically */
+    .cargo-input-group {
+        flex-direction: column;
+    }
  
   .stat-item {
-    min-width: 0;
+    width: 100%;
   }
  
   .stat-number {
-    font-size: 1.6rem;
+    font-size: 2.25rem;
   }
  
   .stat-divider {
-    height: 34px;
+    display: none !important;
   }
  
   .cargo-command-card {
-    padding: var(--space-6);
-  }
- 
-  .cargo-input-group {
-    flex-direction: column;
+    width: 100%;
+        max-width: 100%;
+        padding: var(--space-5);
+        box-sizing: border-box !important;
   }
  
   .btn-track-action {
     justify-content: center;
   }
+
+  .input-wrapper,
+    .btn-track-action {
+        width: 100%;  
+        padding: 0.6rem 1rem;
+        box-sizing: border-box !important;
+    }
+  
+    .input-wrapper input {
+        min-width: 0;
+        text-overflow: ellipsis;
+    }
 }
  
 @media (max-width: 480px) {

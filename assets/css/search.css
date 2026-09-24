@@ -304,3 +304,79 @@
     padding: var(--space-5);
   }
 }
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS: GLOBAL DROPDOWNS & MODALS (global.css)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* 1. Calibrate Calendar Dropdown Modal */
+    .velox-calendar-dropdown-modal {
+        width: 100%; /* Fluid width instead of hardcoded 320px */
+        left: 0;
+        padding: var(--space-3);
+        box-sizing: border-box;
+    }
+    
+    .cal-cell {
+        padding: 6px 0; /* Tighter vertical grid to prevent overflow */
+        font-size: 0.8rem;
+    }
+    
+    .cal-title-toggle {
+        font-size: 0.9rem;
+    }
+
+    /* 2. Protect the Passenger Stepper layout from colliding */
+    .passenger-popup-menu {
+        width: 100%;
+        left: 0;
+        padding: var(--space-3) var(--space-4);
+        box-sizing: border-box;
+        gap: var(--space-3);
+    }
+    
+    .stepper-info .p-type {
+        font-size: 0.8rem;
+    }
+    
+    .stepper-info .p-desc {
+        font-size: 0.65rem;
+    }
+    
+    /* Ensure touch targets remain adequately sized while saving horizontal space */
+    .step-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+    }
+    
+    .step-input {
+        width: 24px;
+        font-size: 0.85rem;
+    }
+
+    /* 4. Unify Input Heights and Font Sizes */
+    .velox-input-box {
+        min-height: var(--size-control-height);
+        padding: 0.6rem 1rem; /* Normalized padding */
+        box-sizing: border-box;
+    }
+
+    .velox-input-box.stacked-box {
+        padding: 0.4rem 1rem; /* Tighter padding to accommodate the stack */
+    }
+
+    /* Force identical typography across all input types */
+    .stacked-row input,
+    #passengerSummaryText,
+    #veloxDateValueDisplay {
+        font-size: var(--text-sm); /* Shrinks slightly for mobile harmony */
+        line-height: 1.5;
+    }
+
+    /* Ensure icons match the adjusted text scale */
+    .velox-input-box .field-icon {
+        width: 16px;
+        height: 16px;
+    }
+}

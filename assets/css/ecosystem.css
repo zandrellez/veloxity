@@ -50,12 +50,6 @@
     max-width: 100%;
 }
 
-@media (max-width: 968px) {
-    .ecosystem-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* Left Column: Map Box (70%) */
 .ecosystem-map-container {
     background: var(--border-subtle);
@@ -236,5 +230,89 @@
     }
     100% {
         transform: translateX(0);
+    }
+}
+
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS: ECOSYSTEM SECTION
+   ========================================================================== */
+
+/* Tablet Adjustments */
+@media (max-width: 968px) {
+    .ecosystem-section {
+        /* Releases the aggressive 100px desktop padding */
+        padding: 4rem var(--space-6); 
+        box-sizing: border-box;
+    }
+
+    .ecosystem-grid {
+        grid-template-columns: 1fr; /* Stacks the Map and Operators 1-per-row */
+        gap: var(--space-8);
+        width: 100%;
+    }
+}
+
+/* Standard Mobile Layout */
+@media (max-width: 768px) {
+    .ecosystem-section {
+        padding: 3rem var(--space-4);
+        min-height: auto;
+        scroll-snap-align: none; /* Disables magnetic snap for easier mobile scrolling */
+        overflow-x: hidden; /* Hard-stops any horizontal scrolling from the marquee */
+        box-sizing: border-box;
+    }
+
+    .ecosystem-header h2 {
+        font-size: 1.75rem;
+    }
+
+    .ecosystem-grid {
+        gap: var(--space-6);
+        box-sizing: border-box;
+    }
+
+    /* 1. Scale down the map height to save vertical real estate */
+    .ecosystem-map-container {
+        min-height: 320px; 
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* 2. Free the Operators container height since they are stacked */
+    .ecosystem-operators-container {
+        height: auto;
+        min-height: 300px;
+        width: 100%;
+        gap: var(--space-4);
+        box-sizing: border-box;
+    }
+
+    /* Ensure the marquee JS has a stable height to calculate rows within */
+    .marquee-wrapper {
+        min-height: 250px; 
+        width: 100%;
+        flex-grow: 1;
+    }
+
+    /* Shrink the fade masks slightly so they don't cover too much of the screen */
+    .marquee-wrapper::before,
+    .marquee-wrapper::after {
+        width: 15px; 
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    /* Compress the map even further for tiny screens */
+    .ecosystem-map-container {
+        min-height: 260px;
+    }
+    
+    /* Shrink the operator pill sizes to fit more logos on screen */
+    .operator-card {
+        padding: 10px 16px;
+        font-size: var(--text-sm);
+        min-width: 100px;
     }
 }

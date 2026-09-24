@@ -241,3 +241,137 @@
 .velox-navbar-wrapper.scrolled.menu-open .menu-icon-trigger {
     display: none;
 }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (Mobile / Tablet Vertical Navbar)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* 0. Fix the horizontal scroll overflow */
+    .velox-navbar-wrapper, 
+    .velox-nav-container {
+        box-sizing: border-box !important;
+        max-width: 100vw;
+    }
+
+    .velox-navbar-wrapper {
+        padding: var(--space-3) var(--space-4) !important; /* Tighter margins for mobile */
+    }
+
+    /* 1. Force the pill into the 'scrolled/compact' state by default */
+    .velox-nav-pill {
+        width: var(--size-control-height);
+        height: var(--size-control-height);
+        padding: 0 !important;
+        justify-content: center;
+        overflow: hidden;
+        transform-origin: top right;
+        position: relative; 
+        box-sizing: border-box;
+    }
+
+    /* Hide horizontal links by default and pin them inward to prevent width leaking */
+    .velox-nav-links,
+    .velox-auth-section {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        right: 0; 
+        white-space: nowrap;
+    }
+
+    /* Always show the menu trigger on mobile */
+    .menu-icon-trigger {
+        display: flex;
+    }
+
+    /* 2. OVERRIDE: Absolute positioning & flexible height when OPEN */
+    .velox-navbar-wrapper.menu-open .velox-nav-pill,
+    .velox-navbar-wrapper.scrolled.menu-open .velox-nav-pill {
+        position: absolute; 
+        top: 0;
+        right: 0; /* Anchors strictly inside the container */
+        width: 260px; 
+        height: auto; 
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-5) var(--space-4) var(--space-4) var(--space-4) !important;
+        border-radius: var(--radius-lg); 
+        gap: var(--space-4);
+        box-shadow: var(--shadow-xl);
+        box-sizing: border-box;
+    }
+
+    /* Show links, stack vertically */
+    .velox-navbar-wrapper.menu-open .velox-nav-links,
+    .velox-navbar-wrapper.scrolled.menu-open .velox-nav-links,
+    .velox-navbar-wrapper.menu-open .velox-auth-section,
+    .velox-navbar-wrapper.scrolled.menu-open .velox-auth-section {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        position: static;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: var(--space-2);
+    }
+
+    /* Pin the trigger icon inside the absolute container */
+    .velox-navbar-wrapper.menu-open .menu-icon-trigger,
+    .velox-navbar-wrapper.scrolled.menu-open .menu-icon-trigger {
+        display: flex;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 32px;
+        height: 32px;
+        opacity: 0.6;
+    }
+
+    /* 3. Adjust internal nav link spacing for vertical layout */
+    .velox-nav-links li {
+        width: 100%;
+    }
+
+    .velox-nav-links a,
+    .velox-nav-links .dropdown-toggle,
+    .velox-auth-section .profile-toggle {
+        width: 100%;
+        padding: var(--space-2) 0;
+        justify-content: space-between; 
+    }
+
+    .velox-nav-login-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: var(--space-2);
+        box-sizing: border-box;
+    }
+
+    /* 4. Flatten the Dropdowns for Natural Vertical Flow */
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        padding: 0 0 0 var(--space-3);
+        min-width: 100%;
+        transform: none !important;
+        display: none;
+        opacity: 1; 
+        visibility: visible;
+        transition: none;
+    }
+
+    .velox-dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu li a {
+        padding: var(--space-1-5) 0;
+        font-size: var(--text-md);
+        color: var(--color-text-secondary);
+    }
+}

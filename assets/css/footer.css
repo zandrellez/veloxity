@@ -148,10 +148,87 @@
     color: var(--text-muted);
 }
 
-/* Responsive breakpoint */
+/* ==========================================================================
+   MOBILE RESPONSIVENESS: FOOTER
+   ========================================================================== */
+
+/* Tablet Adjustments */
 @media (max-width: 968px) {
     .footer-split-grid {
         grid-template-columns: 1fr;
         gap: 50px;
+    }
+    
+    /* Pull the CTA and Brand block to the top for better mobile hierarchy */
+    .footer-right-side {
+        order: -1;
+    }
+    
+    /* Align link columns neatly to the left */
+    .footer-links-container {
+        justify-content: flex-start;
+        gap: 80px;
+    }
+    
+    .footer-col h4 {
+        margin: 0; /* Overrides the previous margin: 0 auto to align strictly left */
+    }
+}
+
+/* Standard Mobile Layout */
+@media (max-width: 768px) {
+    .velox-footer {
+        padding: 60px var(--space-4) 40px var(--space-4);
+    }
+    
+    .footer-split-grid {
+        gap: 40px;
+    }
+
+    .footer-cta-headline {
+        font-size: 2rem;
+        line-height: 1.2;
+        gap: 12px;
+    }
+
+    .footer-cta-line {
+        margin-top: 16px;
+    }
+    
+    .footer-right-side {
+        gap: 40px;
+    }
+}
+
+/* Small Mobile Layout (e.g., iPhone SE) */
+@media (max-width: 480px) {
+    /* Keep link columns side-by-side and spread them evenly */
+    .footer-links-container {
+        flex-direction: row; 
+        justify-content: flex-start;
+        gap: 3rem;
+        width: 100%;
+    }
+
+    /* Shrink the CTA so it doesn't awkwardly wrap and push the arrow off-screen */
+    .footer-cta-headline {
+        font-size: 1.25rem;
+        gap: 8px;
+    }
+    
+    .footer-cta-tagline {
+        font-size: 0.75rem;
+    }
+
+    .footer-right-side {
+        gap: 30px;
+    }
+
+    /* Ensure the copyright is visible with clear spacing */
+    .footer-copyright {
+        display: block;
+        margin-top: 32px;
+        font-size: 0.75rem;
+        width: 100%;
     }
 }

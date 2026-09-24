@@ -377,14 +377,14 @@ form {
 /* Mobile Devices: Stacked Layout & Fast Transitions */
 @media (max-width: 768px) {
     body {
-        align-items: center;
+        align-items: flex-start;
         padding: 0;
         overflow: hidden;
     }
 
     .velox-auth-container {
         height: auto;
-        min-height: 100vh;
+        min-height: 100dvh;
         border-radius: 0;
         border: none;
         display: flex;
@@ -446,7 +446,7 @@ form {
         transition: opacity 0.3s ease-in-out !important;
     }
 
-    .title { font-size: 1.4rem; margin-bottom: 2px; }
+    .title { font-size: 1.4rem; margin-bottom: 2px; color: var(--color-text-on-inverse); }
     .subtitle { font-size: 0.75rem; margin-bottom: 0.5rem; }
     .velox-password-wrapper, .velox-phone-wrapper, .velox-input-field { margin: 4px 0 !important; }
     .social-buttons-grid { margin-top: 2px; gap: 8px; }
@@ -504,11 +504,7 @@ form {
 }
 
 /* Small Mobile Devices (e.g., iPhone SE) */
-@media (max-width: 480px) {
-    .velox-auth-container {
-        min-height: 650px;
-    }
-    
+@media (max-width: 480px) {    
     .signin-signup {
         top: 42%;
     }
