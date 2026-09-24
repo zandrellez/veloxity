@@ -1,38 +1,36 @@
 // 1. Dynamic +63 Prefix on Focus / Click
-const phoneInput = document.getElementById('phoneNumberInput');
-const countryPrefix = document.getElementById('countryPrefix');
+const setupPhoneInput = (inputId, prefixId) => {
+    const pInput = document.getElementById(inputId);
+    const cPrefix = document.getElementById(prefixId);
 
-if (phoneInput) {
-    phoneInput.addEventListener('focus', () => {
-        countryPrefix.style.display = 'inline-block';
-    });
-    phoneInput.addEventListener('blur', () => {
-        if (phoneInput.value === '') {
-            countryPrefix.style.display = 'none';
-        }
-    });
-    phoneInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
-    });
-}
+    if (pInput && cPrefix) {
+        pInput.addEventListener('focus', () => { cPrefix.style.display = 'inline-block'; });
+        pInput.addEventListener('blur', () => { if (pInput.value === '') cPrefix.style.display = 'none'; });
+        pInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+        });
+        // Keep prefix open if there's already an error-retained value
+        if (pInput.value !== '') cPrefix.style.display = 'inline-block';
+    }
+};
+setupPhoneInput('phoneNumberInput', 'countryPrefix');
+setupPhoneInput('operatorPhoneNumberInput', 'operatorCountryPrefix');
 
 // 2. Client-Side Validation (Password Match & Strength)
 const signUpForm = document.getElementById('signUpForm');
 const passwordInput = document.getElementById('signupPassword');
 const confirmPasswordInput = document.getElementById('confirmPassword');
 
-// Auto-dismiss the PHP session alert banner after 3 seconds with a smooth fade
+// 2. Alert Banner Auto-Dismiss & Helper
 const alertBanner = document.getElementById('authAlertBanner');
 if (alertBanner) {
     setTimeout(() => {
         alertBanner.classList.remove('show');
-        setTimeout(() => alertBanner.remove(), 400); // Remove from DOM after transition
+        setTimeout(() => alertBanner.remove(), 400);
     }, 3000);
 }
 
-// Helper replacement for window.alert using the custom banner
 function showVeloxAlert(message) {
-    // Remove existing if any
     const existing = document.getElementById('dynamicAlertBanner');
     if (existing) existing.remove();
 
@@ -42,11 +40,7 @@ function showVeloxAlert(message) {
     banner.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: var(--velox-primary);"></i> <span>${message}</span>`;
 
     document.getElementById('authContainer').appendChild(banner);
-
-    // Trigger smooth entrance
     setTimeout(() => banner.classList.add('show'), 10);
-
-    // Auto dismiss after 3s
     setTimeout(() => {
         banner.classList.remove('show');
         setTimeout(() => banner.remove(), 400);
@@ -80,17 +74,183 @@ if (signUpForm) {
     });
 }
 
+// 3. Hash Routing & Context Switching
+const container = document.getElementById('authContainer');
 const sign_in_btn = document.querySelector("#sign-in-btn");
-const sign_up_btn = document.querySelector("#sign-up-btn");
-const container = document.querySelector("#authContainer");
+const secondaryActionBtn = document.querySelector("#secondaryActionBtn");
+const leftPanelTitle = document.getElementById("leftPanelTitle");
+const leftPanelDesc = document.getElementById("leftPanelDesc");
 
-sign_up_btn.addEventListener('click', () => {
-    container.classList.add("sign-up-mode");
-});
+function handleRouting() {
+    const hash = window.location.hash;
+    container.classList.remove("sign-up-mode", "onboarding-mode");
+    
+    if (hash === "#signup") {
+        container.classList.add("sign-up-mode");
+        setCustomerContext();
+    } else if (hash === "#onboarding") {
+        container.classList.add("onboarding-mode");
+        setOnboardingContext();
+    } else {
+        // Default to Sign In / Customer Mode context on left panel
+        setCustomerContext();
+    }
+}
 
-sign_in_btn.addEventListener('click', () => {
-    container.classList.remove("sign-up-mode");
-});
+function setCustomerContext() {
+    if (leftPanelTitle) leftPanelTitle.textContent = "New to Veloxity?";
+    if (leftPanelDesc) leftPanelDesc.textContent = "Connecting hubs, securing terminal schedules, and delivering cargo transparency with high-performance operational architecture.";
+    if (secondaryActionBtn) {
+        secondaryActionBtn.textContent = "Sign Up";
+        secondaryActionBtn.onclick = () => { window.location.hash = "#signup"; };
+    }
+}
+
+function setOnboardingContext() {
+    if (leftPanelTitle) leftPanelTitle.textContent = "New Fleet Partner?";
+    if (leftPanelDesc) leftPanelDesc.textContent = "Register your terminal operations and manage booking allotments transparently.";
+    if (secondaryActionBtn) {
+        secondaryActionBtn.textContent = "Operator Apply";
+        secondaryActionBtn.onclick = () => { window.location.hash = "#onboarding"; };
+    }
+}
+
+window.addEventListener('DOMContentLoaded', handleRouting);
+window.addEventListener('hashchange', handleRouting);
+
+if (sign_in_btn) {
+    sign_in_btn.addEventListener('click', () => {
+        window.location.hash = "#signin";
+    });
+}
+
+// Multi-Step Wizard with State Retention, File Validation & Submit Interception
+const onboardingForm = document.getElementById('onboardingForm');
+if (onboardingForm) {
+    const steps = onboardingForm.querySelectorAll('.onboarding-step');
+    const nextBtns = onboardingForm.querySelectorAll('.step-next-btn');
+    const prevBtns = onboardingForm.querySelectorAll('.step-prev-btn');
+    let currentStep = 0;
+
+    function updateWizardSteps() {
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === currentStep);
+        });
+    }
+
+    // Auto-jump to error step if PHP returned an error
+    const hasError = document.getElementById('authAlertBanner') !== null;
+    if (hasError) {
+        const repName = onboardingForm.querySelector('input[name="name"]');
+        const pass = onboardingForm.querySelector('input[name="password"]');
+        
+        if (repName && repName.value && pass && pass.value) {
+            currentStep = 2;
+        } else if (repName && repName.value) {
+            currentStep = 1;
+        } else {
+            currentStep = 0;
+        }
+        updateWizardSteps();
+    }
+
+    nextBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const activeStepEl = steps[currentStep];
+            const inputs = activeStepEl.querySelectorAll('input[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                    input.reportValidity();
+                }
+            });
+
+            if (currentStep === 0) {
+                const permitInput = document.getElementById('businessPermitInput');
+                if (!permitInput.files || permitInput.files.length === 0) {
+                    isValid = false;
+                    showVeloxAlert('Please upload your Business Permit or Franchise document.');
+                }
+            }
+
+            if (isValid && currentStep < steps.length - 1) {
+                currentStep++;
+                updateWizardSteps();
+            }
+        });
+    });
+
+    prevBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                updateWizardSteps();
+            }
+        });
+    });
+
+    // Intercept final submission to validate passwords and bypass hidden validation blocks
+    onboardingForm.addEventListener('submit', (e) => {
+        const pass = document.getElementById('operatorPassword').value;
+        const confirmPass = document.getElementById('operatorConfirmPassword').value;
+
+        let score = 0;
+        if (pass.length >= 8) score++;
+        if (/[A-Z]/.test(pass)) score++;
+        if (/[a-z]/.test(pass)) score++;
+        if (/[0-9]/.test(pass)) score++;
+
+        if (pass !== confirmPass) {
+            e.preventDefault();
+            currentStep = 2;
+            updateWizardSteps();
+            showVeloxAlert('Passwords do not match. Please check and try again.');
+            return;
+        }
+
+        if (score < 3) {
+            e.preventDefault();
+            currentStep = 2;
+            updateWizardSteps();
+            showVeloxAlert('Please choose a stronger password (minimum 8 characters with letters and numbers).');
+            return;
+        }
+    });
+}
+
+// File Upload Validation (PDF, Images, Max 5MB)
+const permitInput = document.getElementById('businessPermitInput');
+const dropzoneText = document.getElementById('fileDropzoneText');
+
+if (permitInput) {
+    permitInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+        const maxSizeMB = 5;
+        const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+        if (!allowedTypes.includes(file.type)) {
+            showVeloxAlert('Invalid file format. Please upload a PDF or an Image (JPG/PNG).');
+            permitInput.value = '';
+            dropzoneText.innerHTML = `Drag & drop file or <span style="color: var(--velox-primary); text-decoration: underline;">browse</span>`;
+            return;
+        }
+
+        if (file.size > maxSizeBytes) {
+            showVeloxAlert(`File size exceeds ${maxSizeMB}MB limit. Please choose a smaller file.`);
+            permitInput.value = '';
+            dropzoneText.innerHTML = `Drag & drop file or <span style="color: var(--velox-primary); text-decoration: underline;">browse</span>`;
+            return;
+        }
+
+        // Show selected file name inside dropzone text
+        dropzoneText.innerHTML = `<i class="fa-solid fa-file-circle-check" style="color: var(--color-success-default);"></i> ${file.name}`;
+    });
+}
 
 // 3. Reusable Password Visibility Toggle
 document.querySelectorAll('.toggle-password').forEach(button => {
@@ -113,38 +273,46 @@ document.querySelectorAll('.toggle-password').forEach(button => {
     });
 });
 
-// 4. 5-Segment Password Strength Calculator
-const bars = [
-    document.getElementById('bar1'),
-    document.getElementById('bar2'),
-    document.getElementById('bar3'),
-    document.getElementById('bar4'),
-    document.getElementById('bar5')
-];
-const strengthText = document.getElementById('strengthText');
+// Password Strength Calculators (Customer & Operator)
+const setupPasswordStrength = (passwordInputId, barPrefix, textId) => {
+    const passInput = document.getElementById(passwordInputId);
+    const bars = [
+        document.getElementById(`${barPrefix}1`),
+        document.getElementById(`${barPrefix}2`),
+        document.getElementById(`${barPrefix}3`),
+        document.getElementById(`${barPrefix}4`),
+        document.getElementById(`${barPrefix}5`)
+    ];
+    const strengthText = document.getElementById(textId);
 
-if (passwordInput) {
-    passwordInput.addEventListener('input', () => {
-        const val = passwordInput.value;
-        let score = 0;
+    if (passInput) {
+        passInput.addEventListener('input', () => {
+            const val = passInput.value;
+            let score = 0;
 
-        if (val.length >= 8) score++;
-        if (/[A-Z]/.test(val)) score++;
-        if (/[a-z]/.test(val)) score++;
-        if (/[0-9]/.test(val)) score++;
-        if (/[^A-Za-z0-9]/.test(val)) score++;
+            if (val.length >= 8) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[a-z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
 
-        if (val.length === 0) score = 0;
+            if (val.length === 0) score = 0;
 
-        bars.forEach(bar => bar.style.backgroundColor = '#E2E8F0');
+            bars.forEach(bar => { if (bar) bar.style.backgroundColor = '#E2E8F0'; });
 
-        const colors = ['#EF4444', '#F97316', '#F59E0B', '#10B981', '#059669'];
-        const labels = ['Too short', 'Very Weak', 'Weak', 'Fair', 'Strong', 'Secure'];
+            const colors = ['#EF4444', '#F97316', '#F59E0B', '#10B981', '#059669'];
+            const labels = ['Too short', 'Very Weak', 'Weak', 'Fair', 'Strong', 'Secure'];
 
-        for (let i = 0; i < score; i++) {
-            bars[i].style.backgroundColor = colors[Math.min(score - 1, colors.length - 1)];
-        }
+            for (let i = 0; i < score; i++) {
+                if (bars[i]) bars[i].style.backgroundColor = colors[Math.min(score - 1, colors.length - 1)];
+            }
 
-        strengthText.textContent = `Strength: ${labels[score]}`;
-    });
-}
+            if (strengthText) {
+                strengthText.textContent = `Strength: ${labels[score]}`;
+            }
+        });
+    }
+};
+
+setupPasswordStrength('signupPassword', 'bar', 'strengthText');
+setupPasswordStrength('operatorPassword', 'opBar', 'opStrengthText');

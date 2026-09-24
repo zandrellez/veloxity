@@ -37,7 +37,7 @@ $operators = [
             <div class="operators-header-group">
                 <h3>Partner Operators</h3>
                 <p class="operators-subtext">Want to operate with us? 
-                    <a href="operator/register.php" class="register-link">Register <span>&rarr;</span></a>
+                    <a href="auth.php#onboarding" class="register-link">Register <span>&rarr;</span></a>
                 </p>
             </div>
  

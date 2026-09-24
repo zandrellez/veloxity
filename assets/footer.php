@@ -40,7 +40,7 @@
             <div class="footer-right-side">
                 <div class="footer-cta-block">
                     <span class="footer-cta-tagline">WANT TO OPERATE WITH US?</span>
-                    <a href="#register" class="footer-cta-headline">
+                    <a href="auth.php#onboarding" class="footer-cta-headline">
                         Register as Operator <span>&rarr;</span>
                     </a>
                     <div class="footer-cta-line"></div>

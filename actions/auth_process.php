@@ -10,6 +10,138 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // ==========================================
+// 1. HANDLE OPERATOR ONBOARDING
+// ==========================================
+if (isset($_POST['operator_onboarding'])) {
+    $operatorName = trim($_POST['operator_name']);
+    $headquarters = trim($_POST['headquarters_address']);
+    $repName = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $contact = trim($_POST['contact']);
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirm_password'] ?? '';
+
+    // Basic validation
+    if (empty($operatorName) || empty($headquarters) || empty($repName) || empty($email) || empty($contact) || empty($password) || empty($confirmPassword)) {
+        $_SESSION['auth_error'] = "Please fill in all required fields.";
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+
+    if ($password !== $confirmPassword) {
+        $_SESSION['auth_error'] = "Passwords do not match.";
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+
+    if (strlen($password) < 8 || !preg_match('/[0-9]/', $password) || !preg_match('/[A-Za-z]/', $password)) {
+        $_SESSION['auth_error'] = "Password must be at least 8 characters and include letters and numbers.";
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+
+    // Handle File Upload (Business Permit) to Supabase Storage
+    if (!isset($_FILES['permit_number']) || $_FILES['permit_number']['error'] === UPLOAD_ERR_NO_FILE) {
+        $_SESSION['auth_error'] = "Business Permit / Franchise file is required.";
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+
+    $file = $_FILES['permit_number'];
+    $allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+    $maxSizeMB = 5;
+
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        $_SESSION['auth_error'] = "Error uploading file. Please try again.";
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+
+    if (!in_array($file['type'], $allowedTypes)) {
+        $_SESSION['auth_error'] = "Invalid file type. Only PDF and Images (JPG/PNG) are accepted.";
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+
+    if ($file['size'] > ($maxSizeMB * 1024 * 1024)) {
+        $_SESSION['auth_error'] = "File size exceeds the 5MB limit.";
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+
+    // Prepare Supabase Storage Upload via cURL
+    $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $fileName = 'permit_' . time() . '_' . uniqid() . '.' . $fileExtension;
+    $storagePath = 'permits/' . $fileName; // Path inside the bucket
+
+    // Retrieve Supabase URL and Service Key/Anon Key from environment variables
+    $supabaseUrl = getenv('SUPABASE_URL'); // e.g., https://your-project.supabase.co
+    $supabaseKey = getenv('SUPABASE_SERVICE_ROLE_KEY') ?: getenv('SUPABASE_ANON_KEY'); 
+
+    if (!$supabaseUrl || !$supabaseKey) {
+        $_SESSION['auth_error'] = "Supabase storage configuration keys are missing.";
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+
+    $uploadUrl = rtrim($supabaseUrl, '/') . '/storage/v1/object/' . $storagePath;
+
+    // Read temporary file contents
+    $fileData = file_get_contents($file['tmp_name']);
+
+    $ch = curl_init($uploadUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fileData);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Authorization: Bearer ' . $supabaseKey,
+        'Content-Type: ' . $file['type'],
+        'x-upsert: true'
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($httpCode !== 200 && $httpCode !== 201) {
+        $_SESSION['auth_error'] = "Failed to upload file to Supabase Storage (Code: {$httpCode}).";
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+
+    try {
+        // Check if email already exists
+        $stmt = $pdo->prepare("SELECT user_id FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        if ($stmt->rowCount() > 0) {
+            $_SESSION['auth_error'] = "An account with this email address already exists.";
+            header("Location: ../auth.php#onboarding");
+            exit();        
+        }
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert user account with role 'operator_admin'
+        $userStmt = $pdo->prepare("INSERT INTO users (name, email, password, contact, role, is_verified) VALUES (?, ?, ?, ?, 'operator_admin', 1)");
+        $userStmt->execute([$repName, $email, $hashedPassword, $contact]);
+        $userId = $pdo->lastInsertId();
+
+        // Insert operator application record with 'Pending' status, saving the Supabase storage path
+        $opStmt = $pdo->prepare("INSERT INTO operators (operator_name, permit_number, headquarters_address, user_id, contact_email, contact_phone, acc_status) VALUES (?, ?, ?, ?, ?, ?, 'Pending')");
+        $opStmt->execute([$operatorName, $storagePath, $headquarters, $userId, $email, $contact]);
+
+        $_SESSION['auth_error'] = "Operator application submitted successfully! Your account is currently pending admin approval.";
+        header("Location: ../auth.php#signin");
+        exit();
+
+    } catch (PDOException $e) {
+        $_SESSION['auth_error'] = "Database error: " . $e->getMessage();
+        header("Location: ../auth.php#onboarding");
+        exit();
+    }
+}
+
+// ==========================================
 // HANDLE SIGN UP (Customer Registration)
 // ==========================================
 if (isset($_POST['signup'])) {
